@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Default" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Guid>928ac62d-9c20-48a2-9ff7-124561b92564</Guid>
+    <Name>Guerrilla War Tactical</Name>
+    <Description>Classless Tactical Changes</Description>
+    <SteamPublishID>0</SteamPublishID>
+    <AssemblyName>GuerrillaWarTactical</AssemblyName>
+    <RootNamespace>GuerrillaWarTactical</RootNamespace>
+    <ProjectGuid>{1eada45f-7212-4fe7-a41c-9b0cff30907d}</ProjectGuid>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Config\" />
+    <Folder Include="Content\" />
+    <Folder Include="Localization\" />
+    <Folder Include="Src\" />
+    <Folder Include="Src\GuerrillaWarTactical\" />
+    <Folder Include="Src\GuerrillaWarTactical\Classes\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Config\XComClassData.ini">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ReadMe.txt" />
+    <Content Include="ModPreview.jpg" />
+    <Content Include="Config\XComEditor.ini" />
+    <Content Include="Config\XComEngine.ini" />
+    <Content Include="Config\XComGame.ini" />
+    <Content Include="Localization\XComGame.int" />
+    <Content Include="Src\GuerrillaWarTactical\Classes\X2DownloadableContentInfo_GuerrillaWarTactical.uc" />
+  </ItemGroup>
+  <Import Project="$(MSBuildLocalExtensionPath)\XCOM2.targets" />
+</Project>
