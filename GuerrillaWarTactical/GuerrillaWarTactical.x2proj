@@ -24,6 +24,9 @@
     <Content Include="Config\XComGameData.ini">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Config\XComGWT_Stats_UtilityItems.ini">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="ReadMe.txt" />
     <Content Include="ModPreview.jpg" />
     <Content Include="Config\XComEditor.ini" />
@@ -34,6 +37,12 @@
       <SubType>Content</SubType>
     </Content>
     <Content Include="Src\GuerrillaWarTactical\Classes\GWT_Effect_LoadGrenades.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\GuerrillaWarTactical\Classes\GWT_Item_Armors.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\GuerrillaWarTactical\Classes\GWT_Item_UtilityItems.uc">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Src\GuerrillaWarTactical\Classes\X2DownloadableContentInfo_GuerrillaWarTactical.uc" />
