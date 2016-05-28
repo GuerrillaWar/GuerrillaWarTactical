@@ -57,6 +57,7 @@ static function X2DataTemplate CreateMediumPlatedArmor()
 	Template.BaseItem = 'KevlarArmor'; // Which item this will be upgraded from
 
 	Template.SetUIStatMarkup(class'XLocalizedData'.default.ArmorLabel, eStat_ArmorMitigation, class'GWT_Item_UtilityItems'.default.PREDATOR_ARMOR_BONUS);
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_Item_UtilityItems'.default.PREDATOR_MOBILITY_BONUS);
 
 	return Template;
 }
@@ -81,6 +82,7 @@ static function X2DataTemplate CreateLightPlatedArmor()
 	Template.EquipSound = "StrategyUI_Armor_Equip_Plated";
 
 	Template.SetUIStatMarkup(class'XLocalizedData'.default.ArmorLabel, eStat_ArmorMitigation, class'GWT_Item_UtilityItems'.default.SPIDERSUIT_ARMOR_BONUS);
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_Item_UtilityItems'.default.SPIDERSUIT_MOBILITY_BONUS);
 	
 	return Template;
 }
@@ -105,6 +107,7 @@ static function X2DataTemplate CreateHeavyPlatedArmor()
 	Template.EquipSound = "StrategyUI_Armor_Equip_Plated";
 
 	Template.SetUIStatMarkup(class'XLocalizedData'.default.ArmorLabel, eStat_ArmorMitigation, class'GWT_Item_UtilityItems'.default.EXO_ARMOR_BONUS);
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_Item_UtilityItems'.default.EXO_MOBILITY_BONUS);
 		
 	return Template;
 }
@@ -133,6 +136,7 @@ static function X2DataTemplate CreateMediumPoweredArmor()
 	Template.BaseItem = 'MediumPlatedArmor'; // Which item this will be upgraded from
 
 	Template.SetUIStatMarkup(class'XLocalizedData'.default.ArmorLabel, eStat_ArmorMitigation, class'GWT_Item_UtilityItems'.default.WARDEN_ARMOR_BONUS);
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_Item_UtilityItems'.default.WARDEN_MOBILITY_BONUS);
 	
 	return Template;
 }
@@ -158,6 +162,7 @@ static function X2DataTemplate CreateLightPoweredArmor()
 	Template.EquipSound = "StrategyUI_Armor_Equip_Powered";
 
 	Template.SetUIStatMarkup(class'XLocalizedData'.default.ArmorLabel, eStat_ArmorMitigation, class'GWT_Item_UtilityItems'.default.WRAITHSUIT_ARMOR_BONUS);	
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_Item_UtilityItems'.default.WRAITHSUIT_MOBILITY_BONUS);
 		
 	return Template;
 }
@@ -183,6 +188,7 @@ static function X2DataTemplate CreateHeavyPoweredArmor()
 	Template.EquipSound = "StrategyUI_Armor_Equip_Powered";
 
 	Template.SetUIStatMarkup(class'XLocalizedData'.default.ArmorLabel, eStat_ArmorMitigation, class'GWT_Item_UtilityItems'.default.WARSUIT_ARMOR_BONUS);
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_Item_UtilityItems'.default.WARSUIT_MOBILITY_BONUS);
 	
 	return Template;
 }
