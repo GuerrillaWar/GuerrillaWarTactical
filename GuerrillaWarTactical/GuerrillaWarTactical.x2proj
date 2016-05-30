@@ -57,6 +57,9 @@
     <Content Include="Src\GuerrillaWarTactical\Classes\GWT_WeaponModifiers.uc">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Src\GuerrillaWarTactical\Classes\GWT_XCOMGrenades.uc">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Src\GuerrillaWarTactical\Classes\GWT_XCOMWeapons.uc">
       <SubType>Content</SubType>
     </Content>
