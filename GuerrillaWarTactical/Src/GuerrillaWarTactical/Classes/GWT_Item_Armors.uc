@@ -56,8 +56,8 @@ static function X2DataTemplate CreateMediumPlatedArmor()
 	Template.CreatorTemplateName = 'MediumPlatedArmor_Schematic'; // The schematic which creates this item
 	Template.BaseItem = 'KevlarArmor'; // Which item this will be upgraded from
 
-	Template.SetUIStatMarkup(class'XLocalizedData'.default.ArmorLabel, eStat_ArmorMitigation, class'GWT_Item_UtilityItems'.default.PREDATOR_ARMOR_BONUS);
-	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_Item_UtilityItems'.default.PREDATOR_MOBILITY_BONUS);
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.ArmorLabel, eStat_ArmorMitigation, class'GWT_Ability_Armors'.default.PREDATOR_ARMOR_BONUS);
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_Ability_Armors'.default.PREDATOR_MOBILITY_BONUS);
 
 	return Template;
 }
@@ -81,8 +81,8 @@ static function X2DataTemplate CreateLightPlatedArmor()
 	Template.EquipNarrative = "X2NarrativeMoments.Strategy.CIN_ArmorIntro_PlatedLight";
 	Template.EquipSound = "StrategyUI_Armor_Equip_Plated";
 
-	Template.SetUIStatMarkup(class'XLocalizedData'.default.ArmorLabel, eStat_ArmorMitigation, class'GWT_Item_UtilityItems'.default.SPIDERSUIT_ARMOR_BONUS);
-	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_Item_UtilityItems'.default.SPIDERSUIT_MOBILITY_BONUS);
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.ArmorLabel, eStat_ArmorMitigation, class'GWT_Ability_Armors'.default.SPIDERSUIT_ARMOR_BONUS);
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_Ability_Armors'.default.SPIDERSUIT_MOBILITY_BONUS);
 	
 	return Template;
 }
@@ -106,8 +106,8 @@ static function X2DataTemplate CreateHeavyPlatedArmor()
 	Template.EquipNarrative = "X2NarrativeMoments.Strategy.CIN_ArmorIntro_PlatedHeavy";
 	Template.EquipSound = "StrategyUI_Armor_Equip_Plated";
 
-	Template.SetUIStatMarkup(class'XLocalizedData'.default.ArmorLabel, eStat_ArmorMitigation, class'GWT_Item_UtilityItems'.default.EXO_ARMOR_BONUS);
-	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_Item_UtilityItems'.default.EXO_MOBILITY_BONUS);
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.ArmorLabel, eStat_ArmorMitigation, class'GWT_Ability_Armors'.default.EXO_ARMOR_BONUS);
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_Ability_Armors'.default.EXO_MOBILITY_BONUS);
 		
 	return Template;
 }
@@ -135,8 +135,8 @@ static function X2DataTemplate CreateMediumPoweredArmor()
 	Template.CreatorTemplateName = 'MediumPoweredArmor_Schematic'; // The schematic which creates this item
 	Template.BaseItem = 'MediumPlatedArmor'; // Which item this will be upgraded from
 
-	Template.SetUIStatMarkup(class'XLocalizedData'.default.ArmorLabel, eStat_ArmorMitigation, class'GWT_Item_UtilityItems'.default.WARDEN_ARMOR_BONUS);
-	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_Item_UtilityItems'.default.WARDEN_MOBILITY_BONUS);
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.ArmorLabel, eStat_ArmorMitigation, class'GWT_Ability_Armors'.default.WARDEN_ARMOR_BONUS);
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_Ability_Armors'.default.WARDEN_MOBILITY_BONUS);
 	
 	return Template;
 }
@@ -161,8 +161,8 @@ static function X2DataTemplate CreateLightPoweredArmor()
 	Template.EquipNarrative = "X2NarrativeMoments.Strategy.CIN_ArmorIntro_PoweredLight";
 	Template.EquipSound = "StrategyUI_Armor_Equip_Powered";
 
-	Template.SetUIStatMarkup(class'XLocalizedData'.default.ArmorLabel, eStat_ArmorMitigation, class'GWT_Item_UtilityItems'.default.WRAITHSUIT_ARMOR_BONUS);	
-	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_Item_UtilityItems'.default.WRAITHSUIT_MOBILITY_BONUS);
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.ArmorLabel, eStat_ArmorMitigation, class'GWT_Ability_Armors'.default.WRAITHSUIT_ARMOR_BONUS);	
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_Ability_Armors'.default.WRAITHSUIT_MOBILITY_BONUS);
 		
 	return Template;
 }
@@ -187,8 +187,8 @@ static function X2DataTemplate CreateHeavyPoweredArmor()
 	Template.EquipNarrative = "X2NarrativeMoments.Strategy.CIN_ArmorIntro_PoweredHeavy";
 	Template.EquipSound = "StrategyUI_Armor_Equip_Powered";
 
-	Template.SetUIStatMarkup(class'XLocalizedData'.default.ArmorLabel, eStat_ArmorMitigation, class'GWT_Item_UtilityItems'.default.WARSUIT_ARMOR_BONUS);
-	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_Item_UtilityItems'.default.WARSUIT_MOBILITY_BONUS);
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.ArmorLabel, eStat_ArmorMitigation, class'GWT_Ability_Armors'.default.WARSUIT_ARMOR_BONUS);
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_Ability_Armors'.default.WARSUIT_MOBILITY_BONUS);
 	
 	return Template;
 }

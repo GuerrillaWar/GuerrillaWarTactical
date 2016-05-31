@@ -1,268 +1,529 @@
-class GWT_Item_UtilityItems extends X2Ability
-	dependson  (XComGameStateContext_Ability) config(GWT_Stats_UtilityItems);
+class GWT_Item_UtilityItems extends X2Item config(GWT_Stats_UtilityItems);
 
-//List of config variables that are located in GWT_Stats_UtilityItems that will be used as stats for various utility items, including Armors
+var config int MEDIKIT_CHARGES, NANOMEDIKIT_CHARGES;
+var config int MEDIKIT_RANGE_TILES;
 
-var config int PREDATOR_ARMOR_BONUS;
-var config int PREDATOR_ARMOR_CHANCE;
-var config int PREDATOR_MOBILITY_BONUS;
+var config int BATTLESCANNER_RANGE;
+var config int BATTLESCANNER_RADIUS;
+var config int MIMICBEACON_RANGE;
 
-var config int SPIDERSUIT_ARMOR_BONUS;
-var config int SPIDERSUIT_ARMOR_CHANCE;
-var config int SPIDERSUIT_MOBILITY_BONUS;
-
-var config int EXO_ARMOR_BONUS;
-var config int EXO_ARMOR_CHANCE;
-var config int EXO_MOBILITY_BONUS;
-
-var config int WARDEN_ARMOR_BONUS;
-var config int WARDEN_ARMOR_CHANCE;
-var config int WARDEN_MOBILITY_BONUS;
-
-var config int WRAITHSUIT_ARMOR_BONUS;
-var config int WRAITHSUIT_ARMOR_CHANCE;
-var config int WRAITHSUIT_MOBILITY_BONUS;
-
-var config int WARSUIT_ARMOR_BONUS;
-var config int WARSUIT_ARMOR_CHANCE;
-var config int WARSUIT_MOBILITY_BONUS;
+var name MedikitCat;
 
 static function array<X2DataTemplate> CreateTemplates()
 {
-	local array<X2DataTemplate> Templates;
+	local array<X2DataTemplate> Items;
 
-	Templates.AddItem(LightPlatedArmorStats());
-	Templates.AddItem(LightPoweredArmorStats());
-	Templates.AddItem(MediumPlatedArmorStats());
-	Templates.AddItem(MediumPoweredArmorStats());
-	Templates.AddItem(HeavyPlatedArmorStats());
-	Templates.AddItem(HeavyPoweredArmorStats());
+	Items.AddItem(CreateXPad());
+	Items.AddItem(CreateMedikit());
+	Items.AddItem(NanoMedikit());
+	Items.AddItem(CreateNanoScaleVest());
+	Items.AddItem(CreatePlatedVest());
+	Items.AddItem(CreateHazmatVest());
+	Items.AddItem(CreateStasisVest());
+	Items.AddItem(CreateBattleScanner());
+	Items.AddItem(CreateMimicBeacon());
+	Items.AddItem(MindShield());
+	Items.AddItem(CombatStims());
+	Items.AddItem(Hellweave());
+	Items.AddItem(SKULLJACK());
 
-	return Templates;
+	return Items;
 }
 
-static function X2AbilityTemplate LightPlatedArmorStats()
+static function X2WeaponTemplate CreateBattleScanner()
 {
-	local X2AbilityTemplate                 Template;	
-	local X2AbilityTrigger					Trigger;
-	local X2AbilityTarget_Self				TargetStyle;
-	local X2Effect_PersistentStatChange		PersistentStatChangeEffect;
+	local X2WeaponTemplate Template;
+	local ArtifactCost Resources;
 
-	`CREATE_X2ABILITY_TEMPLATE(Template, 'LightPlatedArmorStats');
-	// Template.IconImage  -- no icon needed for armor stats
+	`CREATE_X2TEMPLATE(class'X2WeaponTemplate', Template, 'BattleScanner');
 
-	Template.AbilitySourceName = 'eAbilitySource_Item';
-	Template.eAbilityIconBehaviorHUD = EAbilityIconBehavior_NeverShow;
-	Template.Hostility = eHostility_Neutral;
-	Template.bDisplayInUITacticalText = false;
+	Template.strImage = "img:///UILibrary_StrategyImages.X2InventoryIcons.Inv_Battle_Scanner";
+	Template.EquipSound = "StrategyUI_Grenade_Equip";
+
+	Template.GameArchetype = "WP_Grenade_BattleScanner.WP_Grenade_BattleScanner";
+	Template.Abilities.AddItem('BattleScanner');
+	Template.ItemCat = 'tech';
+	Template.WeaponCat = 'utility';
+	Template.WeaponTech = 'conventional';
+	Template.InventorySlot = eInvSlot_Utility;
+	Template.StowedLocation = eSlot_BeltHolster;
+	Template.bMergeAmmo = true;
+	Template.iClipSize = 2;
+	Template.Tier = 1;
+
 	
-	Template.AbilityToHitCalc = default.DeadEye;
+
+	Template.iRadius = default.BATTLESCANNER_RADIUS;
+	Template.iRange = default.BATTLESCANNER_RANGE;
+
+	Template.CanBeBuilt = true;
+	Template.PointsToComplete = 0;
+	Template.TradingPostValue = 6;
+
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_WeaponModifiers'.default.UTILITY_MOBILITY_BONUS);
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.RangeLabel, , default.BATTLESCANNER_RANGE);
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.RadiusLabel, , default.BATTLESCANNER_RADIUS);
+
+	// Requirements
+	Template.Requirements.RequiredTechs.AddItem('AutopsyAdventTrooper');
+
+	// Cost
+	Resources.ItemTemplateName = 'Supplies';
+	Resources.Quantity = 30;
+	Template.Cost.ResourceCosts.AddItem(Resources);
 	
-	TargetStyle = new class'X2AbilityTarget_Self';
-	Template.AbilityTargetStyle = TargetStyle;
-
-	Trigger = new class'X2AbilityTrigger_UnitPostBeginPlay';
-	Template.AbilityTriggers.AddItem(Trigger);
-	
-	// light armor has dodge and mobility as well as health
-	//
-	PersistentStatChangeEffect = new class'X2Effect_PersistentStatChange';
-	PersistentStatChangeEffect.BuildPersistentEffect(1, true, false, false);
-	// PersistentStatChangeEffect.SetDisplayInfo(ePerkBuff_Passive, default.MediumPlatedHealthBonusName, default.MediumPlatedHealthBonusDesc, Template.IconImage);
-	PersistentStatChangeEffect.AddPersistentStatChange(eStat_ArmorMitigation, default.SPIDERSUIT_ARMOR_BONUS);
-	PersistentStatChangeEffect.AddPersistentStatChange(eStat_ArmorChance, default.SPIDERSUIT_ARMOR_CHANCE);
-	PersistentStatChangeEffect.AddPersistentStatChange(eStat_Mobility, default.SPIDERSUIT_MOBILITY_BONUS);
-	Template.AddTargetEffect(PersistentStatChangeEffect);
-
-	Template.BuildNewGameStateFn = TypicalAbility_BuildGameState;
-
-	return Template;	
+	return Template;
 }
 
-static function X2AbilityTemplate LightPoweredArmorStats()
+static function X2WeaponTemplate CreateMimicBeacon()
 {
-	local X2AbilityTemplate                 Template;	
-	local X2AbilityTrigger					Trigger;
-	local X2AbilityTarget_Self				TargetStyle;
-	local X2Effect_PersistentStatChange		PersistentStatChangeEffect;
-	//local X2Effect_LowProfile               LowProfileEffect;
+	local X2WeaponTemplate Template;
+	local ArtifactCost Resources;
+	local ArtifactCost Artifacts;
 
-	`CREATE_X2ABILITY_TEMPLATE(Template, 'LightPoweredArmorStats');
-	// Template.IconImage  -- no icon needed for armor stats
+	`CREATE_X2TEMPLATE(class'X2WeaponTemplate', Template, 'MimicBeacon');
 
-	Template.AbilitySourceName = 'eAbilitySource_Item';
-	Template.eAbilityIconBehaviorHUD = EAbilityIconBehavior_NeverShow;
-	Template.Hostility = eHostility_Neutral;
-	Template.bDisplayInUITacticalText = false;
+	Template.strImage = "img:///UILibrary_StrategyImages.X2InventoryIcons.Inv_Mimic_Beacon";
+	Template.EquipSound = "StrategyUI_Grenade_Equip";
+
+	Template.GameArchetype = "WP_Grenade_MimicBeacon.WP_Grenade_MimicBeacon";
+	Template.Abilities.AddItem('MimicBeaconThrow');
+	Template.ItemCat = 'tech';
+	Template.WeaponCat = 'utility';
+	Template.WeaponTech = 'conventional';
+	Template.InventorySlot = eInvSlot_Utility;
+	Template.StowedLocation = eSlot_BeltHolster;
+	Template.bMergeAmmo = true;
+	Template.iClipSize = 1;
+	Template.Tier = 1;
+
 	
-	Template.AbilityToHitCalc = default.DeadEye;
-	
-	TargetStyle = new class'X2AbilityTarget_Self';
-	Template.AbilityTargetStyle = TargetStyle;
 
-	Trigger = new class'X2AbilityTrigger_UnitPostBeginPlay';
-	Template.AbilityTriggers.AddItem(Trigger);
-	
-	PersistentStatChangeEffect = new class'X2Effect_PersistentStatChange';
-	PersistentStatChangeEffect.BuildPersistentEffect(1, true, false, false);
-	PersistentStatChangeEffect.AddPersistentStatChange(eStat_ArmorMitigation, default.WRAITHSUIT_ARMOR_BONUS);
-	PersistentStatChangeEffect.AddPersistentStatChange(eStat_ArmorChance, default.WRAITHSUIT_ARMOR_CHANCE);
-	PersistentStatChangeEffect.AddPersistentStatChange(eStat_Mobility, default.WRAITHSUIT_MOBILITY_BONUS);
-	Template.AddTargetEffect(PersistentStatChangeEffect);
+	Template.iRadius = 1;
+	Template.iRange = default.MIMICBEACON_RANGE;
 
-	// disabled - ttp# 6818
-	//LowProfileEffect = new class'X2Effect_LowProfile';
-	//LowProfileEffect.BuildPersistentEffect(1, true, false, false);
-	//Template.AddTargetEffect(LowProfileEffect);
+	Template.CanBeBuilt = true;
+	Template.PointsToComplete = 0;
+	Template.TradingPostValue = 15;
 
-	Template.BuildNewGameStateFn = TypicalAbility_BuildGameState;
+	Template.bShouldCreateDifficultyVariants = true;
 
-	return Template;	
-}
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.RangeLabel, , default.MIMICBEACON_RANGE);
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_WeaponModifiers'.default.UTILITY_MOBILITY_BONUS);
 
-static function X2AbilityTemplate MediumPlatedArmorStats()
-{
-	local X2AbilityTemplate                 Template;	
-	local X2AbilityTrigger					Trigger;
-	local X2AbilityTarget_Self				TargetStyle;
-	local X2Effect_PersistentStatChange		PersistentStatChangeEffect;
+	// Requirements
+	Template.Requirements.RequiredTechs.AddItem('AutopsyFaceless');
 
-	`CREATE_X2ABILITY_TEMPLATE(Template, 'MediumPlatedArmorStats');
-	// Template.IconImage  -- no icon needed for armor stats
+	// Cost
+	Resources.ItemTemplateName = 'Supplies';
+	Resources.Quantity = 75;
+	Template.Cost.ResourceCosts.AddItem(Resources);
 
-	Template.AbilitySourceName = 'eAbilitySource_Item';
-	Template.eAbilityIconBehaviorHUD = EAbilityIconBehavior_NeverShow;
-	Template.Hostility = eHostility_Neutral;
-	Template.bDisplayInUITacticalText = false;
-	
-	Template.AbilityToHitCalc = default.DeadEye;
-	
-	TargetStyle = new class'X2AbilityTarget_Self';
-	Template.AbilityTargetStyle = TargetStyle;
-
-	Trigger = new class'X2AbilityTrigger_UnitPostBeginPlay';
-	Template.AbilityTriggers.AddItem(Trigger);
-	
-	// giving health here; medium plated doesn't have mitigation
-	//
-	PersistentStatChangeEffect = new class'X2Effect_PersistentStatChange';
-	PersistentStatChangeEffect.BuildPersistentEffect(1, true, false, false);
-	// PersistentStatChangeEffect.SetDisplayInfo(ePerkBuff_Passive, default.MediumPlatedHealthBonusName, default.MediumPlatedHealthBonusDesc, Template.IconImage);
-	PersistentStatChangeEffect.AddPersistentStatChange(eStat_ArmorMitigation, default.PREDATOR_ARMOR_BONUS);
-	PersistentStatChangeEffect.AddPersistentStatChange(eStat_ArmorChance, default.PREDATOR_ARMOR_CHANCE);
-	PersistentStatChangeEffect.AddPersistentStatChange(eStat_Mobility, default.PREDATOR_MOBILITY_BONUS);
-	Template.AddTargetEffect(PersistentStatChangeEffect);
-
-	Template.BuildNewGameStateFn = TypicalAbility_BuildGameState;
-
-	return Template;	
-}
-
-static function X2AbilityTemplate MediumPoweredArmorStats()
-{
-	local X2AbilityTemplate                 Template;
-	local X2AbilityTrigger					Trigger;
-	local X2AbilityTarget_Self				TargetStyle;
-	local X2Effect_PersistentStatChange		PersistentStatChangeEffect;
-
-	`CREATE_X2ABILITY_TEMPLATE(Template, 'MediumPoweredArmorStats');
-	// Template.IconImage  -- no icon needed for armor stats
-
-	Template.AbilitySourceName = 'eAbilitySource_Item';
-	Template.eAbilityIconBehaviorHUD = EAbilityIconBehavior_NeverShow;
-	Template.Hostility = eHostility_Neutral;
-	Template.bDisplayInUITacticalText = false;
-
-	Template.AbilityToHitCalc = default.DeadEye;
-
-	TargetStyle = new class'X2AbilityTarget_Self';
-	Template.AbilityTargetStyle = TargetStyle;
-
-	Trigger = new class'X2AbilityTrigger_UnitPostBeginPlay';
-	Template.AbilityTriggers.AddItem(Trigger);
-
-	//
-	PersistentStatChangeEffect = new class'X2Effect_PersistentStatChange';
-	PersistentStatChangeEffect.BuildPersistentEffect(1, true, false, false);
-	// PersistentStatChangeEffect.SetDisplayInfo(ePerkBuff_Passive, default.MediumPlatedHealthBonusName, default.MediumPlatedHealthBonusDesc, Template.IconImage);
-	PersistentStatChangeEffect.AddPersistentStatChange(eStat_ArmorChance, default.WARDEN_ARMOR_BONUS);
-	PersistentStatChangeEffect.AddPersistentStatChange(eStat_ArmorMitigation, default.WARDEN_ARMOR_CHANCE);
-	PersistentStatChangeEffect.AddPersistentStatChange(eStat_Mobility, default.WARDEN_MOBILITY_BONUS);
-	Template.AddTargetEffect(PersistentStatChangeEffect);
-
-	Template.BuildNewGameStateFn = TypicalAbility_BuildGameState;
+	Artifacts.ItemTemplateName = 'CorpseFaceless';
+	Artifacts.Quantity = 2;
+	Template.Cost.ArtifactCosts.AddItem(Artifacts);
 
 	return Template;
 }
 
-static function X2AbilityTemplate HeavyPlatedArmorStats()
+static function X2DataTemplate CreateXPad()
 {
-	local X2AbilityTemplate                 Template;	
-	local X2AbilityTrigger					Trigger;
-	local X2AbilityTarget_Self				TargetStyle;
-	local X2Effect_PersistentStatChange		PersistentStatChangeEffect;
+	local X2WeaponTemplate Template;
 
-	`CREATE_X2ABILITY_TEMPLATE(Template, 'HeavyPlatedArmorStats');
-	// Template.IconImage  -- no icon needed for armor stats
+	`CREATE_X2TEMPLATE(class'X2WeaponTemplate', Template, 'XPad');
 
-	Template.AbilitySourceName = 'eAbilitySource_Item';
-	Template.eAbilityIconBehaviorHUD = EAbilityIconBehavior_NeverShow;
-	Template.Hostility = eHostility_Neutral;
-	Template.bDisplayInUITacticalText = false;
-	
-	Template.AbilityToHitCalc = default.DeadEye;
-	
-	TargetStyle = new class'X2AbilityTarget_Self';
-	Template.AbilityTargetStyle = TargetStyle;
+	Template.strImage = "img:///UILibrary_StrategyImages.X2InventoryIcons.Inv_X4";
 
-	Trigger = new class'X2AbilityTrigger_UnitPostBeginPlay';
-	Template.AbilityTriggers.AddItem(Trigger);
-	
-	PersistentStatChangeEffect = new class'X2Effect_PersistentStatChange';
-	PersistentStatChangeEffect.BuildPersistentEffect(1, true, false, false);
-	// PersistentStatChangeEffect.SetDisplayInfo(ePerkBuff_Passive, default.MediumPlatedHealthBonusName, default.MediumPlatedHealthBonusDesc, Template.IconImage);
-	PersistentStatChangeEffect.AddPersistentStatChange(eStat_ArmorChance, default.EXO_ARMOR_CHANCE);
-	PersistentStatChangeEffect.AddPersistentStatChange(eStat_ArmorMitigation, default.EXO_ARMOR_BONUS);
-	PersistentStatChangeEffect.AddPersistentStatChange(eStat_Mobility, default.EXO_MOBILITY_BONUS);
-	Template.AddTargetEffect(PersistentStatChangeEffect);
+	Template.ItemCat = 'tech';
+	Template.WeaponCat = 'utility';
+	Template.iRange = 15;
+	Template.iRadius = 240;
+	Template.iItemSize = 0;
+	Template.Tier = -1;
 
-	Template.BuildNewGameStateFn = TypicalAbility_BuildGameState;
+	Template.InventorySlot = eInvSlot_Utility;
+	Template.StowedLocation = eSlot_LowerBack;
+	Template.Abilities.AddItem('Hack');
+	Template.Abilities.AddItem('Hack_Chest');
+	Template.Abilities.AddItem('Hack_Workstation');
+	Template.Abilities.AddItem('Hack_ObjectiveChest');
+		
+	Template.GameArchetype = "WP_HackingKit.WP_HackingKit";
 
-	return Template;	
-}
-
-static function X2AbilityTemplate HeavyPoweredArmorStats()
-{
-	local X2AbilityTemplate                 Template;
-	local X2AbilityTrigger					Trigger;
-	local X2AbilityTarget_Self				TargetStyle;
-	local X2Effect_PersistentStatChange		PersistentStatChangeEffect;
-
-	`CREATE_X2ABILITY_TEMPLATE(Template, 'HeavyPoweredArmorStats');
-	// Template.IconImage  -- no icon needed for armor stats
-
-	Template.AbilitySourceName = 'eAbilitySource_Item';
-	Template.eAbilityIconBehaviorHUD = EAbilityIconBehavior_NeverShow;
-	Template.Hostility = eHostility_Neutral;
-	Template.bDisplayInUITacticalText = false;
-
-	Template.AbilityToHitCalc = default.DeadEye;
-
-	TargetStyle = new class'X2AbilityTarget_Self';
-	Template.AbilityTargetStyle = TargetStyle;
-
-	Trigger = new class'X2AbilityTrigger_UnitPostBeginPlay';
-	Template.AbilityTriggers.AddItem(Trigger);
-
-	PersistentStatChangeEffect = new class'X2Effect_PersistentStatChange';
-	PersistentStatChangeEffect.BuildPersistentEffect(1, true, false, false);
-	// PersistentStatChangeEffect.SetDisplayInfo(ePerkBuff_Passive, default.MediumPlatedHealthBonusName, default.MediumPlatedHealthBonusDesc, Template.IconImage);
-	PersistentStatChangeEffect.AddPersistentStatChange(eStat_ArmorChance, default.WARSUIT_ARMOR_CHANCE);
-	PersistentStatChangeEffect.AddPersistentStatChange(eStat_ArmorMitigation, default.WARSUIT_ARMOR_BONUS);
-	PersistentStatChangeEffect.AddPersistentStatChange(eStat_Mobility, default.WARSUIT_MOBILITY_BONUS);
-	Template.AddTargetEffect(PersistentStatChangeEffect);
-
-	Template.BuildNewGameStateFn = TypicalAbility_BuildGameState;
+	Template.StartingItem = true;
+	Template.CanBeBuilt = false;
+	Template.bInfiniteItem = true;
 
 	return Template;
+}
+
+static function X2DataTemplate CreateNanoScaleVest()
+{
+	local X2EquipmentTemplate Template;
+	local ArtifactCost Resources;
+	local ArtifactCost Artifacts;
+
+	`CREATE_X2TEMPLATE(class'X2EquipmentTemplate', Template, 'NanofiberVest');
+	Template.ItemCat = 'defense';
+	Template.InventorySlot = eInvSlot_Utility;
+	Template.strImage = "img:///UILibrary_StrategyImages.X2InventoryIcons.Inv_Nano_Fiber_Vest";
+	Template.EquipSound = "StrategyUI_Vest_Equip";
+
+	Template.Abilities.AddItem('NanofiberVestBonus');
+
+	Template.CanBeBuilt = true;
+	Template.TradingPostValue = 15;
+	Template.PointsToComplete = 0;
+	Template.Tier = 0;
+
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_WeaponModifiers'.default.UTILITY_MOBILITY_BONUS);
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.HealthLabel, eStat_HP, class'X2Ability_ItemGrantedAbilitySet'.default.NANOFIBER_VEST_HP_BONUS);
+
+	// Requirements
+	Template.Requirements.RequiredTechs.AddItem('HybridMaterials');
+
+	// Cost
+	Resources.ItemTemplateName = 'Supplies';
+	Resources.Quantity = 30;
+	Template.Cost.ResourceCosts.AddItem(Resources);
+
+	Artifacts.ItemTemplateName = 'CorpseAdventTrooper';
+	Artifacts.Quantity = 2;
+	Template.Cost.ArtifactCosts.AddItem(Artifacts);
+
+	return Template;
+}
+
+static function X2DataTemplate CreatePlatedVest()
+{
+	local X2EquipmentTemplate Template;
+	
+	`CREATE_X2TEMPLATE(class'X2EquipmentTemplate', Template, 'PlatedVest');
+	Template.ItemCat = 'defense';
+	Template.InventorySlot = eInvSlot_Utility;
+	Template.strImage = "img:///UILibrary_StrategyImages.X2InventoryIcons.Inv_Armor_Harness";
+	Template.EquipSound = "StrategyUI_Vest_Equip";
+
+	Template.Abilities.AddItem('PlatedVestBonus');
+
+	Template.CanBeBuilt = false;
+	Template.TradingPostValue = 25;
+	Template.PointsToComplete = 0;
+	Template.Tier = 2;
+
+	Template.RewardDecks.AddItem('ExperimentalArmorRewards');
+
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_WeaponModifiers'.default.UTILITY_MOBILITY_BONUS);
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.HealthLabel, eStat_HP, class'X2Ability_ItemGrantedAbilitySet'.default.PLATED_VEST_HP_BONUS);
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.ArmorLabel, eStat_ArmorMitigation, class'X2Ability_ItemGrantedAbilitySet'.default.PLATED_VEST_MITIGATION_AMOUNT);
+	
+	return Template;
+}
+
+static function X2DataTemplate CreateHazmatVest()
+{
+	local X2EquipmentTemplate Template;
+
+	`CREATE_X2TEMPLATE(class'X2EquipmentTemplate', Template, 'HazmatVest');
+	Template.ItemCat = 'defense';
+	Template.InventorySlot = eInvSlot_Utility;
+	Template.strImage = "img:///UILibrary_StrategyImages.X2InventoryIcons.Inv_Hazmat_Vest";
+	Template.EquipSound = "StrategyUI_Vest_Equip";
+
+	Template.Abilities.AddItem('HazmatVestBonus');
+
+	Template.CanBeBuilt = false;
+	Template.TradingPostValue = 25;
+	Template.PointsToComplete = 0;
+	Template.Tier = 2;
+
+	Template.RewardDecks.AddItem('ExperimentalArmorRewards');
+
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_WeaponModifiers'.default.UTILITY_MOBILITY_BONUS);
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.HealthLabel, eStat_HP, class'X2Ability_ItemGrantedAbilitySet'.default.HAZMAT_VEST_HP_BONUS);
+
+	return Template;
+}
+
+static function X2DataTemplate CreateStasisVest()
+{
+	local X2EquipmentTemplate Template;
+
+	`CREATE_X2TEMPLATE(class'X2EquipmentTemplate', Template, 'StasisVest');
+	Template.ItemCat = 'defense';
+	Template.InventorySlot = eInvSlot_Utility;
+	Template.strImage = "img:///UILibrary_StrategyImages.X2InventoryIcons.Inv_Stasis_Vest";
+	Template.EquipSound = "StrategyUI_Vest_Equip";
+
+	Template.Abilities.AddItem('StasisVestBonus');
+
+	Template.CanBeBuilt = false;
+	Template.TradingPostValue = 25;
+	Template.PointsToComplete = 0;
+	Template.Tier = 2;
+
+	Template.RewardDecks.AddItem('ExperimentalArmorRewards');
+
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_WeaponModifiers'.default.UTILITY_MOBILITY_BONUS);
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.HealthLabel, eStat_HP, class'X2Ability_ItemGrantedAbilitySet'.default.STASIS_VEST_HP_BONUS);
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.RegenLabel, , class'X2Ability_ItemGrantedAbilitySet'.default.STASIS_VEST_REGEN_AMOUNT);
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.MaxRegenLabel, , class'X2Ability_ItemGrantedAbilitySet'.default.STASIS_VEST_MAX_REGEN_AMOUNT);
+
+	Template.Abilities.AddItem('MedikitStabilize');
+
+	return Template;
+}
+
+static function X2DataTemplate CreateMedikit()
+{
+	local X2WeaponTemplate Template;
+	local ArtifactCost Resources;
+	
+	`CREATE_X2TEMPLATE(class'X2WeaponTemplate', Template, 'Medikit');
+	Template.ItemCat = 'heal';
+	Template.WeaponCat = default.MedikitCat;
+
+	Template.InventorySlot = eInvSlot_Utility;
+	Template.StowedLocation = eSlot_RearBackPack;
+	Template.strImage = "img:///UILibrary_StrategyImages.X2InventoryIcons.Inv_Medkit";
+	Template.EquipSound = "StrategyUI_Medkit_Equip";
+
+	Template.iClipSize = default.MEDIKIT_CHARGES;
+	Template.iRange = default.MEDIKIT_RANGE_TILES;
+	Template.bMergeAmmo = true;
+
+	Template.Abilities.AddItem('MedikitHeal');
+	Template.Abilities.AddItem('MedikitStabilize');
+	Template.Abilities.AddItem('MedikitBonus');
+
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_WeaponModifiers'.default.UTILITY_MOBILITY_BONUS);
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.ChargesLabel, , default.MEDIKIT_CHARGES); // TODO: Make the label say charges
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.RangeLabel, , default.MEDIKIT_RANGE_TILES);
+
+	Template.GameArchetype = "WP_Medikit.WP_Medikit";
+
+	Template.CanBeBuilt = true;
+	Template.TradingPostValue = 15;
+	Template.PointsToComplete = 0;
+	Template.Tier = 0;
+
+	// Cost
+	Resources.ItemTemplateName = 'Supplies';
+	Resources.Quantity = 35;
+	Template.Cost.ResourceCosts.AddItem(Resources);
+
+	Template.HideIfResearched = 'BattlefieldMedicine';
+
+	return Template;
+}
+
+static function X2DataTemplate NanoMedikit()
+{
+	local X2WeaponTemplate Template;
+	local ArtifactCost Resources;
+	local ArtifactCost Artifacts;
+	
+	`CREATE_X2TEMPLATE(class'X2WeaponTemplate', Template, 'NanoMedikit');
+	Template.ItemCat = 'heal';
+	Template.WeaponCat = default.MedikitCat;
+
+	Template.InventorySlot = eInvSlot_Utility;
+	Template.StowedLocation = eSlot_RearBackPack;
+	Template.strImage = "img:///UILibrary_StrategyImages.X2InventoryIcons.Inv_MedkitMK2";
+	Template.EquipSound = "StrategyUI_Medkit_Equip";
+
+	Template.iClipSize = default.NANOMEDIKIT_CHARGES;
+	Template.iRange = default.MEDIKIT_RANGE_TILES;
+	Template.bMergeAmmo = true;
+
+	Template.Abilities.AddItem('NanoMedikitHeal');
+	Template.Abilities.AddItem('MedikitStabilize');
+	Template.Abilities.AddItem('NanoMedikitBonus');
+
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_WeaponModifiers'.default.UTILITY_MOBILITY_BONUS);
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.ChargesLabel, , default.NANOMEDIKIT_CHARGES);
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.RangeLabel, , default.MEDIKIT_RANGE_TILES);
+
+	Template.GameArchetype = "WP_Medikit.WP_Medikit_Lv2";
+
+	Template.CanBeBuilt = true;
+	Template.TradingPostValue = 25;
+	Template.PointsToComplete = 0;
+	Template.Tier = 1;
+
+	Resources.ItemTemplateName = 'Supplies';
+	Resources.Quantity = 50;
+	Template.Cost.ResourceCosts.AddItem(Resources);
+
+	Artifacts.ItemTemplateName = 'CorpseViper';
+	Artifacts.Quantity = 1;
+	Template.Cost.ArtifactCosts.AddItem(Artifacts);
+
+	Template.Requirements.RequiredTechs.AddItem('BattlefieldMedicine');
+
+	Template.CreatorTemplateName = 'BattlefieldMedicine'; // The schematic which creates this item
+	Template.BaseItem = 'Medikit'; // Which item this will be upgraded from
+
+	return Template;
+}
+
+static function X2DataTemplate MindShield()
+{
+	local X2EquipmentTemplate Template;
+	local ArtifactCost Resources;
+	local ArtifactCost Artifacts;
+
+	`CREATE_X2TEMPLATE(class'X2EquipmentTemplate', Template, 'MindShield');
+	Template.ItemCat = 'psidefense';
+	Template.InventorySlot = eInvSlot_Utility;
+	Template.strImage = "img:///UILibrary_StrategyImages.X2InventoryIcons.Inv_MindShield";
+	Template.EquipSound = "StrategyUI_Mindshield_Equip";
+
+	Template.Abilities.AddItem('MindShield');
+
+	Template.CanBeBuilt = true;
+	Template.TradingPostValue = 12;
+	Template.PointsToComplete = 0;
+	Template.Tier = 1;
+
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_WeaponModifiers'.default.UTILITY_MOBILITY_BONUS);
+
+	// Requirements
+	Template.Requirements.RequiredTechs.AddItem('AutopsySectoid');
+
+	// Cost
+	Resources.ItemTemplateName = 'Supplies';
+	Resources.Quantity = 45;
+	Template.Cost.ResourceCosts.AddItem(Resources);
+
+	Artifacts.ItemTemplateName = 'CorpseSectoid';
+	Artifacts.Quantity = 1;
+	Template.Cost.ArtifactCosts.AddItem(Artifacts);
+	
+	return Template;
+}
+
+static function X2DataTemplate CombatStims()
+{
+	local X2WeaponTemplate Template;
+	local ArtifactCost Resources;
+	local ArtifactCost Artifacts;
+	
+	`CREATE_X2TEMPLATE(class'X2WeaponTemplate', Template, 'CombatStims');
+	Template.ItemCat = 'utility';
+	Template.WeaponCat = 'utility';
+
+	Template.InventorySlot = eInvSlot_Utility;
+	Template.StowedLocation = eSlot_RearBackPack;
+	Template.strImage = "img:///UILibrary_StrategyImages.X2InventoryIcons.Inv_Combat_Stims";
+	Template.EquipSound = "StrategyUI_Medkit_Equip";
+
+	Template.Abilities.AddItem('CombatStims');
+
+	Template.GameArchetype = "WP_Medikit.WP_CombatStim";
+
+	Template.CanBeBuilt = true;
+	Template.TradingPostValue = 10;
+	Template.Tier = 2;
+
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_WeaponModifiers'.default.UTILITY_MOBILITY_BONUS);
+
+	// Requirements
+	Template.Requirements.RequiredTechs.AddItem('AutopsyBerserker');
+
+	// Cost
+	Resources.ItemTemplateName = 'Supplies';
+	Resources.Quantity = 35;
+	Template.Cost.ResourceCosts.AddItem(Resources);
+
+	Artifacts.ItemTemplateName = 'CorpseBerserker';
+	Artifacts.Quantity = 1;
+	Template.Cost.ArtifactCosts.AddItem(Artifacts);
+
+	return Template;
+}
+
+static function X2DataTemplate Hellweave()
+{
+	local X2EquipmentTemplate Template;
+	local ArtifactCost Resources;
+	local ArtifactCost Artifacts;
+
+	`CREATE_X2TEMPLATE(class'X2EquipmentTemplate', Template, 'Hellweave');
+	Template.ItemCat = 'defense';
+	Template.InventorySlot = eInvSlot_Utility;
+	Template.strImage = "img:///UILibrary_StrategyImages.X2InventoryIcons.Inv_Hellweave";
+	Template.EquipSound = "StrategyUI_Vest_Equip";
+
+	Template.Abilities.AddItem('ScorchCircuits');
+
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_WeaponModifiers'.default.UTILITY_MOBILITY_BONUS);
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.HealthLabel, eStat_HP, class'X2Ability_ItemGrantedAbilitySet'.default.SCORCHCIRCUITS_HEALTH_BONUS);
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.BurnChanceLabel, , class'X2Ability_ItemGrantedAbilitySet'.default.SCORCHCIRCUITS_APPLY_CHANCE);
+
+	Template.CanBeBuilt = true;
+	Template.TradingPostValue = 15;
+	Template.Tier = 2;
+
+	// Requirements
+	Template.Requirements.RequiredTechs.AddItem('AutopsyChryssalid');
+
+	// Cost
+	Resources.ItemTemplateName = 'Supplies';
+	Resources.Quantity = 65;
+	Template.Cost.ResourceCosts.AddItem(Resources);
+
+	Artifacts.ItemTemplateName = 'CorpseChryssalid';
+	Artifacts.Quantity = 2;
+	Template.Cost.ArtifactCosts.AddItem(Artifacts);
+
+	return Template;
+}
+
+static function X2DataTemplate SKULLJACK()
+{
+	local X2WeaponTemplate Template;
+	
+	`CREATE_X2TEMPLATE(class'X2WeaponTemplate', Template, 'SKULLJACK');
+	Template.InventorySlot = eInvSlot_Utility;
+
+	Template.Abilities.AddItem('SKULLJACKAbility');
+	Template.Abilities.AddItem('SKULLMINEAbility');
+
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_WeaponModifiers'.default.UTILITY_MOBILITY_BONUS);
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.TechBonusLabel, eStat_Hacking, class'X2AbilityToHitCalc_Hacking'.default.SKULLJACK_HACKING_BONUS, false, IsSkullminingResearched);
+
+	Template.CanBeBuilt = false;
+	Template.PointsToComplete = 0;
+	Template.TradingPostValue = 15;
+	Template.MaxQuantity = 1;
+	Template.Tier = 1;
+
+	Template.GameArchetype = "WP_HackingKit.WP_SKULLJACK";
+
+	Template.StowedLocation = eSlot_RightForearm;
+	Template.WeaponCat = 'skulljack';
+	Template.WeaponTech = 'conventional';
+	Template.ItemCat = 'goldenpath';
+	Template.strImage = "img:///UILibrary_StrategyImages.X2InventoryIcons.Inv_Skulljack";
+	Template.EquipSound = "StrategyUI_Skulljack_Equip";
+
+	Template.OnEquippedFn = SKULLJACKEquipped;
+
+	return Template;
+}
+
+function bool IsSkullminingResearched()
+{
+	return class'UIUtilities_Strategy'.static.GetXComHQ().IsTechResearched('Skullmining');
+}
+
+function SKULLJACKEquipped(XComGameState_Item ItemState, XComGameState_Unit UnitState, XComGameState NewGameState)
+{
+	`XEVENTMGR.TriggerEvent('OnSKULLJACKEquip', ItemState, ItemState, NewGameState);
+}
+
+DefaultProperties
+{
+	MedikitCat="medikit"
 }
