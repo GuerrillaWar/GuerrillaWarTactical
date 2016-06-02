@@ -3,6 +3,11 @@ class GWT_Item_UtilityItems extends X2Item config(GWT_Stats_UtilityItems);
 var config int MEDIKIT_CHARGES, NANOMEDIKIT_CHARGES;
 var config int MEDIKIT_RANGE_TILES;
 
+var config int NANOSCALE_ARMOR_BONUS;
+var config int PLATEDVEST_ARMOR_BONUS;
+
+var config int PLATEDVEST_UNIQUEMOBILITY_BONUS;
+
 var config int BATTLESCANNER_RANGE;
 var config int BATTLESCANNER_RADIUS;
 var config int MIMICBEACON_RANGE;
@@ -177,7 +182,7 @@ static function X2DataTemplate CreateNanoScaleVest()
 	Template.Tier = 0;
 
 	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_WeaponModifiers'.default.UTILITY_MOBILITY_BONUS);
-	Template.SetUIStatMarkup(class'XLocalizedData'.default.HealthLabel, eStat_HP, class'X2Ability_ItemGrantedAbilitySet'.default.NANOFIBER_VEST_HP_BONUS);
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.ArmorLabel, eStat_ArmorMitigation, default.NANOSCALE_ARMOR_BONUS);
 
 	// Requirements
 	Template.Requirements.RequiredTechs.AddItem('HybridMaterials');
@@ -213,9 +218,8 @@ static function X2DataTemplate CreatePlatedVest()
 
 	Template.RewardDecks.AddItem('ExperimentalArmorRewards');
 
-	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_WeaponModifiers'.default.UTILITY_MOBILITY_BONUS);
-	Template.SetUIStatMarkup(class'XLocalizedData'.default.HealthLabel, eStat_HP, class'X2Ability_ItemGrantedAbilitySet'.default.PLATED_VEST_HP_BONUS);
-	Template.SetUIStatMarkup(class'XLocalizedData'.default.ArmorLabel, eStat_ArmorMitigation, class'X2Ability_ItemGrantedAbilitySet'.default.PLATED_VEST_MITIGATION_AMOUNT);
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, default.PLATEDVEST_UNIQUEMOBILITY_BONUS);
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.ArmorLabel, eStat_ArmorMitigation, default.PLATEDVEST_ARMOR_BONUS);
 	
 	return Template;
 }
@@ -240,7 +244,6 @@ static function X2DataTemplate CreateHazmatVest()
 	Template.RewardDecks.AddItem('ExperimentalArmorRewards');
 
 	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_WeaponModifiers'.default.UTILITY_MOBILITY_BONUS);
-	Template.SetUIStatMarkup(class'XLocalizedData'.default.HealthLabel, eStat_HP, class'X2Ability_ItemGrantedAbilitySet'.default.HAZMAT_VEST_HP_BONUS);
 
 	return Template;
 }
@@ -265,7 +268,6 @@ static function X2DataTemplate CreateStasisVest()
 	Template.RewardDecks.AddItem('ExperimentalArmorRewards');
 
 	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_WeaponModifiers'.default.UTILITY_MOBILITY_BONUS);
-	Template.SetUIStatMarkup(class'XLocalizedData'.default.HealthLabel, eStat_HP, class'X2Ability_ItemGrantedAbilitySet'.default.STASIS_VEST_HP_BONUS);
 	Template.SetUIStatMarkup(class'XLocalizedData'.default.RegenLabel, , class'X2Ability_ItemGrantedAbilitySet'.default.STASIS_VEST_REGEN_AMOUNT);
 	Template.SetUIStatMarkup(class'XLocalizedData'.default.MaxRegenLabel, , class'X2Ability_ItemGrantedAbilitySet'.default.STASIS_VEST_MAX_REGEN_AMOUNT);
 
@@ -458,7 +460,6 @@ static function X2DataTemplate Hellweave()
 	Template.Abilities.AddItem('ScorchCircuits');
 
 	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_WeaponModifiers'.default.UTILITY_MOBILITY_BONUS);
-	Template.SetUIStatMarkup(class'XLocalizedData'.default.HealthLabel, eStat_HP, class'X2Ability_ItemGrantedAbilitySet'.default.SCORCHCIRCUITS_HEALTH_BONUS);
 	Template.SetUIStatMarkup(class'XLocalizedData'.default.BurnChanceLabel, , class'X2Ability_ItemGrantedAbilitySet'.default.SCORCHCIRCUITS_APPLY_CHANCE);
 
 	Template.CanBeBuilt = true;

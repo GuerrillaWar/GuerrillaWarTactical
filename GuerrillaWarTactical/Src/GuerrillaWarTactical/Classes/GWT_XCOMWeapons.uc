@@ -174,6 +174,7 @@ static function array<X2DataTemplate> CreateTemplates()
 static function X2DataTemplate CreateTemplate_AssaultRifle_Conventional()
 {
 	local X2WeaponTemplate Template;
+	local ArtifactCost Resources;
 
 	`CREATE_X2TEMPLATE(class'X2WeaponTemplate', Template, 'AssaultRifle_CV');
 	Template.WeaponPanelImage = "_ConventionalRifle";                       // used by the UI. Probably determines iconview of the weapon.
@@ -195,6 +196,10 @@ static function X2DataTemplate CreateTemplate_AssaultRifle_Conventional()
 	Template.iClipSize = default.ASSAULTRIFLE_CONVENTIONAL_ICLIPSIZE;
 	Template.iSoundRange = default.ASSAULTRIFLE_CONVENTIONAL_ISOUNDRANGE;
 	Template.iEnvironmentDamage = default.ASSAULTRIFLE_CONVENTIONAL_IENVIRONMENTDAMAGE;
+
+	Template.StartingItem = true;
+	Template.bInfiniteItem = false;
+	Template.CanBeBuilt = true;
 
 	Template.NumUpgradeSlots = 1;
 	
@@ -218,14 +223,17 @@ static function X2DataTemplate CreateTemplate_AssaultRifle_Conventional()
 
 	Template.iPhysicsImpulse = 5;
 
-	Template.StartingItem = true;
-	Template.CanBeBuilt = false;
-	Template.bInfiniteItem = true;
+	Template.CreatorTemplateName = 'AssaultRifle_CV_Schematic'; // The schematic which creates this item
 	
 	Template.fKnockbackDamageAmount = 5.0f;
 	Template.fKnockbackDamageRadius = 0.0f;
 
 	Template.DamageTypeTemplateName = 'Projectile_Conventional';
+
+	// Cost
+	Resources.ItemTemplateName = 'Supplies';
+	Resources.Quantity = 30;
+	Template.Cost.ResourceCosts.AddItem(Resources);
 	
 	return Template;
 }
@@ -255,6 +263,9 @@ static function X2DataTemplate CreateTemplate_AssaultRifle_Magnetic()
 	Template.iSoundRange = default.ASSAULTRIFLE_MAGNETIC_ISOUNDRANGE;
 	Template.iEnvironmentDamage = default.ASSAULTRIFLE_MAGNETIC_IENVIRONMENTDAMAGE;
 
+	Template.CanBeBuilt = false;
+	Template.bInfiniteItem = false;
+
 	Template.NumUpgradeSlots = 2;
 	
 	Template.InventorySlot = eInvSlot_PrimaryWeapon;
@@ -278,8 +289,6 @@ static function X2DataTemplate CreateTemplate_AssaultRifle_Magnetic()
 	Template.CreatorTemplateName = 'AssaultRifle_MG_Schematic'; // The schematic which creates this item
 	Template.BaseItem = 'AssaultRifle_CV'; // Which item this will be upgraded from
 
-	Template.CanBeBuilt = false;
-	Template.bInfiniteItem = true;
 
 	Template.DamageTypeTemplateName = 'Projectile_MagXCom';
 
@@ -311,6 +320,9 @@ static function X2DataTemplate CreateTemplate_AssaultRifle_Beam()
 	Template.iSoundRange = default.ASSAULTRIFLE_BEAM_ISOUNDRANGE;
 	Template.iEnvironmentDamage = default.ASSAULTRIFLE_BEAM_IENVIRONMENTDAMAGE;
 
+	Template.CanBeBuilt = false;
+	Template.bInfiniteItem = false;
+
 	Template.NumUpgradeSlots = 2;
 	
 	Template.InventorySlot = eInvSlot_PrimaryWeapon;
@@ -330,8 +342,6 @@ static function X2DataTemplate CreateTemplate_AssaultRifle_Beam()
 
 	Template.iPhysicsImpulse = 5;
 
-	Template.CanBeBuilt = false;
-	Template.bInfiniteItem = true;
 
 	Template.CreatorTemplateName = 'AssaultRifle_BM_Schematic'; // The schematic which creates this item
 	Template.BaseItem = 'AssaultRifle_MG'; // Which item this will be upgraded from
@@ -348,6 +358,7 @@ static function X2DataTemplate CreateTemplate_AssaultRifle_Beam()
 static function X2DataTemplate CreateTemplate_Shotgun_Conventional()
 {
 	local X2WeaponTemplate Template;
+	local ArtifactCost Resources;
 
 	`CREATE_X2TEMPLATE(class'X2WeaponTemplate', Template, 'Shotgun_CV');
 	Template.WeaponPanelImage = "_ConventionalShotgun";
@@ -370,6 +381,10 @@ static function X2DataTemplate CreateTemplate_Shotgun_Conventional()
 	Template.iSoundRange = default.SHOTGUN_CONVENTIONAL_ISOUNDRANGE;
 	Template.iEnvironmentDamage = default.SHOTGUN_CONVENTIONAL_IENVIRONMENTDAMAGE;
 
+	Template.StartingItem = true;
+	Template.bInfiniteItem = false;
+	Template.CanBeBuilt = true;
+
 	Template.NumUpgradeSlots = 1;
 	
 	Template.InventorySlot = eInvSlot_PrimaryWeapon;
@@ -391,14 +406,18 @@ static function X2DataTemplate CreateTemplate_Shotgun_Conventional()
 
 	Template.iPhysicsImpulse = 5;
 
+	Template.CreatorTemplateName = 'Shotgun_CV_Schematic'; // The schematic which creates this item
+
 	Template.fKnockbackDamageAmount = 10.0f;
 	Template.fKnockbackDamageRadius = 16.0f;
 
-	Template.StartingItem = true;
-	Template.CanBeBuilt = false;
-	Template.bInfiniteItem = true;
 
 	Template.DamageTypeTemplateName = 'Projectile_Conventional';
+
+	// Cost
+	Resources.ItemTemplateName = 'Supplies';
+	Resources.Quantity = 30;
+	Template.Cost.ResourceCosts.AddItem(Resources);
 
 	return Template;
 }
@@ -429,6 +448,9 @@ static function X2DataTemplate CreateTemplate_Shotgun_Magnetic()
 	Template.iEnvironmentDamage = default.SHOTGUN_MAGNETIC_IENVIRONMENTDAMAGE;
 	Template.NumUpgradeSlots = 2;
 	
+	Template.CanBeBuilt = false;
+	Template.bInfiniteItem = false;
+
 	Template.InventorySlot = eInvSlot_PrimaryWeapon;
 	Template.Abilities.AddItem('StandardShot');
 	Template.Abilities.AddItem('Overwatch');
@@ -454,8 +476,6 @@ static function X2DataTemplate CreateTemplate_Shotgun_Magnetic()
 	Template.CreatorTemplateName = 'Shotgun_MG_Schematic'; // The schematic which creates this item
 	Template.BaseItem = 'Shotgun_CV'; // Which item this will be upgraded from
 
-	Template.CanBeBuilt = false;
-	Template.bInfiniteItem = true;
 
 	Template.DamageTypeTemplateName = 'Projectile_MagXCom';
 
@@ -488,6 +508,9 @@ static function X2DataTemplate CreateTemplate_Shotgun_Beam()
 	Template.iEnvironmentDamage = default.SHOTGUN_BEAM_IENVIRONMENTDAMAGE;
 	Template.NumUpgradeSlots = 2;
 
+	Template.CanBeBuilt = false;
+	Template.bInfiniteItem = false;
+
 	Template.InventorySlot = eInvSlot_PrimaryWeapon;
 	Template.Abilities.AddItem('StandardShot');
 	Template.Abilities.AddItem('Overwatch');
@@ -514,8 +537,6 @@ static function X2DataTemplate CreateTemplate_Shotgun_Beam()
 	Template.CreatorTemplateName = 'Shotgun_BM_Schematic'; // The schematic which creates this item
 	Template.BaseItem = 'Shotgun_MG'; // Which item this will be upgraded from
 
-	Template.CanBeBuilt = false;
-	Template.bInfiniteItem = true;
 
 	Template.DamageTypeTemplateName = 'Projectile_BeamXCom';
 
@@ -529,6 +550,7 @@ static function X2DataTemplate CreateTemplate_Shotgun_Beam()
 static function X2DataTemplate CreateTemplate_Cannon_Conventional()
 {
 	local X2WeaponTemplate Template;
+	local ArtifactCost Resources;
 
 	`CREATE_X2TEMPLATE(class'X2WeaponTemplate', Template, 'Cannon_CV');
 	Template.WeaponPanelImage = "_ConventionalCannon";
@@ -553,6 +575,10 @@ static function X2DataTemplate CreateTemplate_Cannon_Conventional()
 	Template.NumUpgradeSlots = 1;
 	Template.bIsLargeWeapon = true;
 
+	Template.StartingItem = true;
+	Template.bInfiniteItem = false;
+	Template.CanBeBuilt = true;
+
 	Template.InventorySlot = eInvSlot_PrimaryWeapon;
 	Template.Abilities.AddItem('StandardShot');
 	Template.Abilities.AddItem('Overwatch');
@@ -573,11 +599,15 @@ static function X2DataTemplate CreateTemplate_Cannon_Conventional()
 
 	Template.iPhysicsImpulse = 5;
 
-	Template.StartingItem = true;
-	Template.CanBeBuilt = false;
-	Template.bInfiniteItem = true;
+	Template.CreatorTemplateName = 'Cannon_CV_Schematic'; // The schematic which creates this item
+
 
 	Template.DamageTypeTemplateName = 'Projectile_Conventional';
+
+	// Cost
+	Resources.ItemTemplateName = 'Supplies';
+	Resources.Quantity = 30;
+	Template.Cost.ResourceCosts.AddItem(Resources);
 
 	return Template;
 }
@@ -609,6 +639,9 @@ static function X2DataTemplate CreateTemplate_Cannon_Magnetic()
 	Template.NumUpgradeSlots = 2;
 	Template.bIsLargeWeapon = true;
 
+	Template.CanBeBuilt = false;
+	Template.bInfiniteItem = false;
+
 	Template.InventorySlot = eInvSlot_PrimaryWeapon;
 	Template.Abilities.AddItem('StandardShot');
 	Template.Abilities.AddItem('Overwatch');
@@ -630,8 +663,6 @@ static function X2DataTemplate CreateTemplate_Cannon_Magnetic()
 	Template.CreatorTemplateName = 'Cannon_MG_Schematic'; // The schematic which creates this item
 	Template.BaseItem = 'Cannon_CV'; // Which item this will be upgraded from
 
-	Template.CanBeBuilt = false;
-	Template.bInfiniteItem = true;
 
 	Template.DamageTypeTemplateName = 'Projectile_MagXCom';
 
@@ -665,6 +696,9 @@ static function X2DataTemplate CreateTemplate_Cannon_Beam()
 	Template.NumUpgradeSlots = 2;
 	Template.bIsLargeWeapon = true;
 
+	Template.CanBeBuilt = false;
+	Template.bInfiniteItem = false;
+
 	Template.InventorySlot = eInvSlot_PrimaryWeapon;
 	Template.Abilities.AddItem('StandardShot');
 	Template.Abilities.AddItem('Overwatch');
@@ -687,8 +721,6 @@ static function X2DataTemplate CreateTemplate_Cannon_Beam()
 	Template.CreatorTemplateName = 'Cannon_BM_Schematic'; // The schematic which creates this item
 	Template.BaseItem = 'Cannon_MG'; // Which item this will be upgraded from
 
-	Template.CanBeBuilt = false;
-	Template.bInfiniteItem = true;
 
 	Template.DamageTypeTemplateName = 'Projectile_BeamXCom';
 
@@ -702,6 +734,7 @@ static function X2DataTemplate CreateTemplate_Cannon_Beam()
 static function X2DataTemplate CreateTemplate_SniperRifle_Conventional()
 {
 	local X2WeaponTemplate Template;
+	local ArtifactCost Resources;
 
 	`CREATE_X2TEMPLATE(class'X2WeaponTemplate', Template, 'SniperRifle_CV');
 	Template.WeaponPanelImage = "_ConventionalSniperRifle";
@@ -726,8 +759,11 @@ static function X2DataTemplate CreateTemplate_SniperRifle_Conventional()
 	Template.NumUpgradeSlots = 1;
 	Template.iTypicalActionCost = 2;
 
-	Template.bIsLargeWeapon = true;
-	
+	Template.StartingItem = true;
+	Template.bInfiniteItem = false;
+	Template.CanBeBuilt = true;
+
+
 	Template.InventorySlot = eInvSlot_PrimaryWeapon;
 	Template.Abilities.AddItem('SniperStandardFire');
 	Template.Abilities.AddItem('SniperRifleOverwatch');
@@ -748,11 +784,14 @@ static function X2DataTemplate CreateTemplate_SniperRifle_Conventional()
 
 	Template.iPhysicsImpulse = 5;
 
-	Template.StartingItem = true;
-	Template.CanBeBuilt = false;
-	Template.bInfiniteItem = true;
+	Template.CreatorTemplateName = 'SniperRifle_CV_Schematic'; // The schematic which creates this item
 
 	Template.DamageTypeTemplateName = 'Projectile_Conventional';
+
+	// Cost
+	Resources.ItemTemplateName = 'Supplies';
+	Resources.Quantity = 30;
+	Template.Cost.ResourceCosts.AddItem(Resources);
 
 	return Template;
 }
@@ -784,6 +823,9 @@ static function X2DataTemplate CreateTemplate_SniperRifle_Magnetic()
 	Template.NumUpgradeSlots = 2;
 	Template.iTypicalActionCost = 2;
 
+	Template.CanBeBuilt = false;
+	Template.bInfiniteItem = false;
+
 	Template.bIsLargeWeapon = true;
 	
 	Template.InventorySlot = eInvSlot_PrimaryWeapon;
@@ -808,9 +850,6 @@ static function X2DataTemplate CreateTemplate_SniperRifle_Magnetic()
 
 	Template.CreatorTemplateName = 'SniperRifle_MG_Schematic'; // The schematic which creates this item
 	Template.BaseItem = 'SniperRifle_CV'; // Which item this will be upgraded from
-
-	Template.CanBeBuilt = false;
-	Template.bInfiniteItem = true;
 
 	Template.DamageTypeTemplateName = 'Projectile_MagXCom';
 
@@ -844,6 +883,9 @@ static function X2DataTemplate CreateTemplate_SniperRifle_Beam()
 	Template.NumUpgradeSlots = 2;
 	Template.iTypicalActionCost = 2;
 
+	Template.CanBeBuilt = false;
+	Template.bInfiniteItem = false;
+
 	Template.InventorySlot = eInvSlot_PrimaryWeapon;
 	Template.Abilities.AddItem('SniperStandardFire');
 	Template.Abilities.AddItem('SniperRifleOverwatch');
@@ -866,8 +908,6 @@ static function X2DataTemplate CreateTemplate_SniperRifle_Beam()
 	Template.CreatorTemplateName = 'SniperRifle_BM_Schematic'; // The schematic which creates this item
 	Template.BaseItem = 'SniperRifle_MG'; // Which item this will be upgraded from
 
-	Template.CanBeBuilt = false;
-	Template.bInfiniteItem = true;
 
 	Template.DamageTypeTemplateName = 'Projectile_BeamXCom';
 
