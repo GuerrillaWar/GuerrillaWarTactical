@@ -21,6 +21,9 @@
     <Content Include="Config\XComClassData.ini">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Config\XComGameCore.ini">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Config\XComGameData.ini">
       <SubType>Content</SubType>
     </Content>
@@ -28,6 +31,9 @@
       <SubType>Content</SubType>
     </Content>
     <Content Include="Config\XComGameData_WeaponData.ini">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Config\XComGWT_Stats_Effects.ini">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Config\XComGWT_Stats_UtilityItems.ini">
@@ -45,7 +51,13 @@
     <Content Include="Src\GuerrillaWarTactical\Classes\GWT_Ability_Armors.uc">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Src\GuerrillaWarTactical\Classes\GWT_Ability_LightSuppression.uc">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Src\GuerrillaWarTactical\Classes\GWT_Ability_LoadGrenades.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\GuerrillaWarTactical\Classes\GWT_Effect_LightSuppression.uc">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Src\GuerrillaWarTactical\Classes\GWT_Effect_LoadGrenades.uc">

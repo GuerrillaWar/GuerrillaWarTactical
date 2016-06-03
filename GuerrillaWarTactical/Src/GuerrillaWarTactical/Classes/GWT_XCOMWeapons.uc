@@ -209,6 +209,7 @@ static function X2DataTemplate CreateTemplate_AssaultRifle_Conventional()
 	Template.Abilities.AddItem('OverwatchShot');
 	Template.Abilities.AddItem('Reload');
 	Template.Abilities.AddItem('HotLoadAmmo');
+	Template.Abilities.AddItem('LightSuppression');
 	
 	// This all the resources; sounds, animations, models, physics, the works.
 	Template.GameArchetype = "WP_AssaultRifle_CV.WP_AssaultRifle_CV";
