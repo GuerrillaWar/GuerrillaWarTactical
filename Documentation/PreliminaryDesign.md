@@ -42,8 +42,8 @@ The goals of this design are:
 
 Note, some of these tweaks are possibly implemented by mods
 
-- [ ] raise base mobility for XCOM soldiers
-- [ ] remove HP bonuses conferred by equipment, alter them to confer armor
+- [X] raise base mobility for XCOM soldiers
+- [X] remove HP bonuses conferred by equipment, alter them to confer armor
       bonusses instead
 - [ ] make armor shredding repairable, and shredding less common-place in
       weapon and ability design
@@ -104,8 +104,8 @@ Stealth - Sprinter (+ mobility)
 # Equipment Work
 
 - [ ] reduce environmental damage of grenades
-- [ ] remove class restrictions of all weapons
-- [ ] add sensible mobility penalties to all weapons to compensate for
+- [X] remove class restrictions of all weapons
+- [X] add sensible mobility penalties to all weapons to compensate for
       a soldiers higher base mobility
 - [ ] add staple abilities to weapons
 
