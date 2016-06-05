@@ -185,8 +185,8 @@ static function X2AbilityTemplate MediumPoweredArmorStats()
 	PersistentStatChangeEffect = new class'X2Effect_PersistentStatChange';
 	PersistentStatChangeEffect.BuildPersistentEffect(1, true, false, false);
 	// PersistentStatChangeEffect.SetDisplayInfo(ePerkBuff_Passive, default.MediumPlatedHealthBonusName, default.MediumPlatedHealthBonusDesc, Template.IconImage);
-	PersistentStatChangeEffect.AddPersistentStatChange(eStat_ArmorChance, default.WARDEN_ARMOR_BONUS);
-	PersistentStatChangeEffect.AddPersistentStatChange(eStat_ArmorMitigation, default.WARDEN_ARMOR_CHANCE);
+	PersistentStatChangeEffect.AddPersistentStatChange(eStat_ArmorMitigation, default.WARDEN_ARMOR_BONUS);
+	PersistentStatChangeEffect.AddPersistentStatChange(eStat_ArmorChance, default.WARDEN_ARMOR_CHANCE);
 	PersistentStatChangeEffect.AddPersistentStatChange(eStat_Mobility, default.WARDEN_MOBILITY_BONUS);
 	Template.AddTargetEffect(PersistentStatChangeEffect);
 
