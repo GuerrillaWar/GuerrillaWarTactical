@@ -63,6 +63,9 @@
     <Content Include="Src\GuerrillaWarTactical\Classes\GWT_Effect_LoadGrenades.uc">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Src\GuerrillaWarTactical\Classes\GWT_InsertBaseWeaponAbilities.uc">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Src\GuerrillaWarTactical\Classes\GWT_Item_Armors.uc">
       <SubType>Content</SubType>
     </Content>
