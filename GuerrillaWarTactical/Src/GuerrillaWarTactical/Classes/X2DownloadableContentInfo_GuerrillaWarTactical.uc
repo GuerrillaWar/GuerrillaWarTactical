@@ -38,4 +38,5 @@ static function UpdateTemplatesForGWT()
 {
 	class'GWT_InsertBaseWeaponAbilities'.static.AddBaseAbilitiesToWeapons();
 	class'GWT_Item_Armors'.static.UpdateItemArmorTemplates();
+	class'GWT_XCOMWeapons'.static.UpdateXCOMWeaponTemplates();
 }
