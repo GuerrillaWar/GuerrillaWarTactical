@@ -26,7 +26,7 @@ static function X2AbilityTemplate LightSuppression()
 	Template.IconImage = "img:///UILibrary_PerkIcons.UIPerk_supression";
 
 	AmmoCost = new class'X2AbilityCost_Ammo';	
-	AmmoCost.iAmmo = 2;
+	AmmoCost.iAmmo = 3;
 	Template.AbilityCosts.AddItem(AmmoCost);
 
 	ActionPointCost = new class'X2AbilityCost_ActionPoints';
