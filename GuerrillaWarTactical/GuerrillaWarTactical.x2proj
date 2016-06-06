@@ -42,6 +42,9 @@
     <Content Include="Config\XComGWT_WeaponStats.ini">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Content\GWT_XCOMWeapons.upk">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="ReadMe.txt" />
     <Content Include="ModPreview.jpg" />
     <Content Include="Config\XComEditor.ini" />

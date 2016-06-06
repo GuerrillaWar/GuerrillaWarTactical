@@ -177,6 +177,9 @@ static function AssaultRifle_Conventional(X2WeaponTemplate Template)
 	Template.UIStatMarkups.Remove(0, Template.UIStatMarkups.Length);
 	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_WeaponModifiers'.default.ASSAULTRIFLE_MOBILITY_BONUS);
 
+	// This all the resources; sounds, animations, models, physics, the works.
+	Template.GameArchetype = "GWT_XCOMWeapons.GWT_AssaultRifle_CV";
+
 	Template.RangeAccuracy = default.MEDIUM_CONVENTIONAL_RANGE;
 	Template.BaseDamage = default.ASSAULTRIFLE_CONVENTIONAL_BASEDAMAGE;
 	Template.Aim = default.ASSAULTRIFLE_CONVENTIONAL_AIM;
@@ -208,6 +211,11 @@ static function AssaultRifle_Magnetic(X2WeaponTemplate Template)
 	Template.iClipSize = default.ASSAULTRIFLE_MAGNETIC_ICLIPSIZE;
 	Template.iSoundRange = default.ASSAULTRIFLE_MAGNETIC_ISOUNDRANGE;
 	Template.iEnvironmentDamage = default.ASSAULTRIFLE_MAGNETIC_IENVIRONMENTDAMAGE;
+
+	// This all the resources; sounds, animations, models, physics, the works.
+	Template.GameArchetype = "GWT_XCOMWeapons.GWT_AssaultRifle_MG";
+
+	Template.Abilities.AddItem('LightSuppression');
 
 	Template.CanBeBuilt = true;
 	Template.bInfiniteItem = false;
