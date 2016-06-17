@@ -194,7 +194,7 @@ static function AssaultRifle_Conventional(X2WeaponTemplate Template)
 	Template.CanBeBuilt = true;
 	Template.bInfiniteItem = false;
 
-	Template.Abilities.AddItem('LightSuppression');
+	Template.Abilities.AddItem('Suppression');
 
 	// Cost
 	Resources.ItemTemplateName = 'Supplies';
@@ -222,7 +222,7 @@ static function AssaultRifle_Magnetic(X2WeaponTemplate Template)
 	// This all the resources; sounds, animations, models, physics, the works.
 	Template.GameArchetype = "GWT_XCOMWeapons.GWT_AssaultRifle_MG";
 
-	Template.Abilities.AddItem('LightSuppression');
+	Template.Abilities.AddItem('Suppression');
 
 	Template.bInfiniteItem = false;
 

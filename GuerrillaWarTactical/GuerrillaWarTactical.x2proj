@@ -51,16 +51,19 @@
     <Content Include="Config\XComEngine.ini" />
     <Content Include="Config\XComGame.ini" />
     <Content Include="Localization\XComGame.int" />
-    <Content Include="Src\GuerrillaWarTactical\Classes\GWT_Ability_Armors.uc">
+    <Content Include="Src\GuerrillaWarTactical\Classes\GWT_AbilityCost_WeaponConditionalAmmo.uc">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="Src\GuerrillaWarTactical\Classes\GWT_Ability_LightSuppression.uc">
+    <Content Include="Src\GuerrillaWarTactical\Classes\GWT_Ability_Armors.uc">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Src\GuerrillaWarTactical\Classes\GWT_Ability_LoadGrenades.uc">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="Src\GuerrillaWarTactical\Classes\GWT_Effect_LightSuppression.uc">
+    <Content Include="Src\GuerrillaWarTactical\Classes\GWT_Ability_Suppression.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\GuerrillaWarTactical\Classes\GWT_Effect_Suppression.uc">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Src\GuerrillaWarTactical\Classes\GWT_Effect_LoadGrenades.uc">
@@ -73,6 +76,9 @@
       <SubType>Content</SubType>
     </Content>
     <Content Include="Src\GuerrillaWarTactical\Classes\GWT_Item_UtilityItems.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\GuerrillaWarTactical\Classes\GWT_Localize_Suppression.uc">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Src\GuerrillaWarTactical\Classes\GWT_Schematics_XCOMWeapons.uc">

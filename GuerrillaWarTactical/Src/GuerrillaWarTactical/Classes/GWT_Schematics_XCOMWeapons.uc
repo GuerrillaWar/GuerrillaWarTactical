@@ -23,7 +23,6 @@ static function array<X2DataTemplate> CreateTemplates()
 static function X2DataTemplate CreateTemplate_AssaultRifle_Conventional_Schematic()
 {
 	local X2SchematicTemplate Template;
-	local ArtifactCost Resources;
 
 	`CREATE_X2TEMPLATE(class'X2SchematicTemplate', Template, 'AssaultRifle_CV_Schematic');
 
@@ -120,7 +119,6 @@ static function X2DataTemplate CreateTemplate_AssaultRifle_Beam_Schematic()
 static function X2DataTemplate CreateTemplate_Shotgun_Conventional_Schematic()
 {
 	local X2SchematicTemplate Template;
-	local ArtifactCost Resources;
 
 	`CREATE_X2TEMPLATE(class'X2SchematicTemplate', Template, 'Shotgun_CV_Schematic');
 
@@ -218,7 +216,6 @@ static function X2DataTemplate CreateTemplate_Shotgun_Beam_Schematic()
 static function X2DataTemplate CreateTemplate_Cannon_Conventional_Schematic()
 {
 	local X2SchematicTemplate Template;
-	local ArtifactCost Resources;
 
 	`CREATE_X2TEMPLATE(class'X2SchematicTemplate', Template, 'Cannon_CV_Schematic');
 
@@ -316,7 +313,6 @@ static function X2DataTemplate CreateTemplate_Cannon_Beam_Schematic()
 static function X2DataTemplate CreateTemplate_SniperRifle_Conventional_Schematic()
 {
 	local X2SchematicTemplate Template;
-	local ArtifactCost Resources;
 
 	`CREATE_X2TEMPLATE(class'X2SchematicTemplate', Template, 'SniperRifle_CV_Schematic');
 
