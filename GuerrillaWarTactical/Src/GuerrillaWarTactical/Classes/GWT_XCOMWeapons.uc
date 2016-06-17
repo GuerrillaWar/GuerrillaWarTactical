@@ -176,10 +176,13 @@ static function AssaultRifle_Conventional(X2WeaponTemplate Template)
 
 	Template.UIStatMarkups.Remove(0, Template.UIStatMarkups.Length);
 	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_WeaponModifiers'.default.ASSAULTRIFLE_MOBILITY_BONUS);
+	Template.GameArchetype = "GWT_XCOMWeapons";
+
 
 	// This all the resources; sounds, animations, models, physics, the works.
 	Template.GameArchetype = "GWT_XCOMWeapons.GWT_AssaultRifle_CV";
 
+	
 	Template.RangeAccuracy = default.MEDIUM_CONVENTIONAL_RANGE;
 	Template.BaseDamage = default.ASSAULTRIFLE_CONVENTIONAL_BASEDAMAGE;
 	Template.Aim = default.ASSAULTRIFLE_CONVENTIONAL_AIM;
@@ -187,8 +190,9 @@ static function AssaultRifle_Conventional(X2WeaponTemplate Template)
 	Template.iClipSize = default.ASSAULTRIFLE_CONVENTIONAL_ICLIPSIZE;
 	Template.iSoundRange = default.ASSAULTRIFLE_CONVENTIONAL_ISOUNDRANGE;
 	Template.iEnvironmentDamage = default.ASSAULTRIFLE_CONVENTIONAL_IENVIRONMENTDAMAGE;
-	Template.bInfiniteItem = false;
+
 	Template.CanBeBuilt = true;
+	Template.bInfiniteItem = false;
 
 	Template.Abilities.AddItem('LightSuppression');
 
@@ -201,9 +205,12 @@ static function AssaultRifle_Conventional(X2WeaponTemplate Template)
 
 static function AssaultRifle_Magnetic(X2WeaponTemplate Template)
 {
+	local ArtifactCost Resources;
+	
 	Template.UIStatMarkups.Remove(0, Template.UIStatMarkups.Length);
 	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_WeaponModifiers'.default.ASSAULTRIFLE_MOBILITY_BONUS);
 
+	Template.GameArchetype = "GWT_XCOMWeapons";
 	Template.RangeAccuracy = default.MEDIUM_MAGNETIC_RANGE;
 	Template.BaseDamage = default.ASSAULTRIFLE_MAGNETIC_BASEDAMAGE;
 	Template.Aim = default.ASSAULTRIFLE_MAGNETIC_AIM;
@@ -217,17 +224,33 @@ static function AssaultRifle_Magnetic(X2WeaponTemplate Template)
 
 	Template.Abilities.AddItem('LightSuppression');
 
-	Template.CanBeBuilt = true;
 	Template.bInfiniteItem = false;
+
+	// Requirements
+	Template.Requirements.RequiredTechs.AddItem('MagnetizedWeapons');
+	Template.Requirements.RequiredEngineeringScore = 10;
+	Template.Requirements.bVisibleIfPersonnelGatesNotMet = true;
+
+	// Cost
+	Resources.ItemTemplateName = 'Supplies';
+	Resources.Quantity = 125;
+	Template.Cost.ResourceCosts.AddItem(Resources);
+
+	Resources.ItemTemplateName = 'AlienAlloy';
+	Resources.Quantity = 10;
+	Template.Cost.ResourceCosts.AddItem(Resources);
 
 	class'X2ItemTemplateManager'.static.GetItemTemplateManager().AddItemTemplate(Template, true);
 }
 
 static function AssaultRifle_Beam(X2WeaponTemplate Template)
 {
+	local ArtifactCost Resources;
+	
 	Template.UIStatMarkups.Remove(0, Template.UIStatMarkups.Length);
 	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_WeaponModifiers'.default.ASSAULTRIFLE_MOBILITY_BONUS);
 
+	Template.GameArchetype = "GWT_XCOMWeapons";
 	Template.RangeAccuracy = default.MEDIUM_BEAM_RANGE;
 	Template.BaseDamage = default.ASSAULTRIFLE_BEAM_BASEDAMAGE;
 	Template.Aim = default.ASSAULTRIFLE_BEAM_AIM;
@@ -236,8 +259,26 @@ static function AssaultRifle_Beam(X2WeaponTemplate Template)
 	Template.iSoundRange = default.ASSAULTRIFLE_BEAM_ISOUNDRANGE;
 	Template.iEnvironmentDamage = default.ASSAULTRIFLE_BEAM_IENVIRONMENTDAMAGE;
 
-	Template.CanBeBuilt = true;
+
 	Template.bInfiniteItem = false;
+
+	// Requirements
+	Template.Requirements.RequiredTechs.AddItem('PlasmaRifle');
+	Template.Requirements.RequiredEngineeringScore = 20;
+	Template.Requirements.bVisibleIfPersonnelGatesNotMet = true;
+
+	// Cost
+	Resources.ItemTemplateName = 'Supplies';
+	Resources.Quantity = 250;
+	Template.Cost.ResourceCosts.AddItem(Resources);
+	
+	Resources.ItemTemplateName = 'AlienAlloy';
+	Resources.Quantity = 20;
+	Template.Cost.ResourceCosts.AddItem(Resources);
+	
+	Resources.ItemTemplateName = 'EleriumDust';
+	Resources.Quantity = 10;
+	Template.Cost.ResourceCosts.AddItem(Resources);
 
 	class'X2ItemTemplateManager'.static.GetItemTemplateManager().AddItemTemplate(Template, true);
 }
@@ -261,9 +302,8 @@ static function Shotgun_Conventional(X2WeaponTemplate Template)
 	Template.iSoundRange = default.SHOTGUN_CONVENTIONAL_ISOUNDRANGE;
 	Template.iEnvironmentDamage = default.SHOTGUN_CONVENTIONAL_IENVIRONMENTDAMAGE;
 
-	Template.StartingItem = true;
-	Template.bInfiniteItem = false;
 	Template.CanBeBuilt = true;
+	Template.bInfiniteItem = false;
 
 	// Cost
 	Resources.ItemTemplateName = 'Supplies';
@@ -275,6 +315,8 @@ static function Shotgun_Conventional(X2WeaponTemplate Template)
 
 static function Shotgun_Magnetic(X2WeaponTemplate Template)
 {
+	local ArtifactCost Resources;
+	
 	Template.UIStatMarkups.Remove(0, Template.UIStatMarkups.Length);
 	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_WeaponModifiers'.default.SHOTGUN_MOBILITY_BONUS);
 
@@ -287,14 +329,29 @@ static function Shotgun_Magnetic(X2WeaponTemplate Template)
 	Template.iEnvironmentDamage = default.SHOTGUN_MAGNETIC_IENVIRONMENTDAMAGE;
 	Template.NumUpgradeSlots = 2;
 	
-	Template.CanBeBuilt = true;
 	Template.bInfiniteItem = false;
+
+	// Requirements
+	Template.Requirements.RequiredTechs.AddItem('MagnetizedWeapons');
+	Template.Requirements.RequiredEngineeringScore = 15;
+	Template.Requirements.bVisibleIfPersonnelGatesNotMet = true;
+
+	// Cost
+	Resources.ItemTemplateName = 'Supplies';
+	Resources.Quantity = 75;
+	Template.Cost.ResourceCosts.AddItem(Resources);
+
+	Resources.ItemTemplateName = 'AlienAlloy';
+	Resources.Quantity = 5;
+	Template.Cost.ResourceCosts.AddItem(Resources);
 
 	class'X2ItemTemplateManager'.static.GetItemTemplateManager().AddItemTemplate(Template, true);
 }
 
 static function Shotgun_Beam(X2WeaponTemplate Template)
 {
+	local ArtifactCost Resources;
+	
 	Template.UIStatMarkups.Remove(0, Template.UIStatMarkups.Length);
 	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_WeaponModifiers'.default.SHOTGUN_MOBILITY_BONUS);
 
@@ -306,8 +363,25 @@ static function Shotgun_Beam(X2WeaponTemplate Template)
 	Template.iSoundRange = default.SHOTGUN_BEAM_ISOUNDRANGE;
 	Template.iEnvironmentDamage = default.SHOTGUN_BEAM_IENVIRONMENTDAMAGE;
 
-	Template.CanBeBuilt = true;
 	Template.bInfiniteItem = false;
+
+	// Requirements
+	Template.Requirements.RequiredTechs.AddItem('AlloyCannon');
+	Template.Requirements.RequiredEngineeringScore = 25;
+	Template.Requirements.bVisibleIfPersonnelGatesNotMet = true;
+
+	// Cost
+	Resources.ItemTemplateName = 'Supplies';
+	Resources.Quantity = 140;
+	Template.Cost.ResourceCosts.AddItem(Resources);
+
+	Resources.ItemTemplateName = 'AlienAlloy';
+	Resources.Quantity = 10;
+	Template.Cost.ResourceCosts.AddItem(Resources);
+
+	Resources.ItemTemplateName = 'EleriumDust';
+	Resources.Quantity = 10;
+	Template.Cost.ResourceCosts.AddItem(Resources);
 
 	class'X2ItemTemplateManager'.static.GetItemTemplateManager().AddItemTemplate(Template, true);
 }
@@ -333,15 +407,14 @@ static function Cannon_Conventional(X2WeaponTemplate Template)
 	Template.NumUpgradeSlots = 1;
 	Template.bIsLargeWeapon = true;
 
-	Template.StartingItem = true;
-	Template.bInfiniteItem = false;
 	Template.CanBeBuilt = true;
+	Template.bInfiniteItem = false;
 
 	Template.Abilities.AddItem('Suppression');
 
 	// Cost
 	Resources.ItemTemplateName = 'Supplies';
-	Resources.Quantity = 30;
+	Resources.Quantity = 50;
 	Template.Cost.ResourceCosts.AddItem(Resources);
 
 	class'X2ItemTemplateManager'.static.GetItemTemplateManager().AddItemTemplate(Template, true);
@@ -349,6 +422,8 @@ static function Cannon_Conventional(X2WeaponTemplate Template)
 
 static function Cannon_Magnetic(X2WeaponTemplate Template)
 {
+	local ArtifactCost Resources;
+	
 	Template.UIStatMarkups.Remove(0, Template.UIStatMarkups.Length);
 	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_WeaponModifiers'.default.LMG_MOBILITY_BONUS);
 
@@ -364,14 +439,29 @@ static function Cannon_Magnetic(X2WeaponTemplate Template)
 
 	Template.Abilities.AddItem('Suppression');
 
-	Template.CanBeBuilt = true;
 	Template.bInfiniteItem = false;
+
+	// Requirements
+	Template.Requirements.RequiredTechs.AddItem('GaussWeapons');
+	Template.Requirements.RequiredEngineeringScore = 15;
+	Template.Requirements.bVisibleIfPersonnelGatesNotMet = true;
+
+	// Cost
+	Resources.ItemTemplateName = 'Supplies';
+	Resources.Quantity = 150;
+	Template.Cost.ResourceCosts.AddItem(Resources);
+
+	Resources.ItemTemplateName = 'AlienAlloy';
+	Resources.Quantity = 10;
+	Template.Cost.ResourceCosts.AddItem(Resources);
 
 	class'X2ItemTemplateManager'.static.GetItemTemplateManager().AddItemTemplate(Template, true);
 }
 
 static function Cannon_Beam(X2WeaponTemplate Template)
 {
+	local ArtifactCost Resources;
+	
 	Template.UIStatMarkups.Remove(0, Template.UIStatMarkups.Length);
 	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_WeaponModifiers'.default.LMG_MOBILITY_BONUS);
 
@@ -387,8 +477,25 @@ static function Cannon_Beam(X2WeaponTemplate Template)
 
 	Template.Abilities.AddItem('Suppression');
 
-	Template.CanBeBuilt = true;
 	Template.bInfiniteItem = false;
+
+	// Requirements
+	Template.Requirements.RequiredTechs.AddItem('HeavyPlasma');
+	Template.Requirements.RequiredEngineeringScore = 25;
+	Template.Requirements.bVisibleIfPersonnelGatesNotMet = true;
+
+	// Cost
+	Resources.ItemTemplateName = 'Supplies';
+	Resources.Quantity = 250;
+	Template.Cost.ResourceCosts.AddItem(Resources);
+
+	Resources.ItemTemplateName = 'AlienAlloy';
+	Resources.Quantity = 20;
+	Template.Cost.ResourceCosts.AddItem(Resources);
+
+	Resources.ItemTemplateName = 'EleriumDust';
+	Resources.Quantity = 10;
+	Template.Cost.ResourceCosts.AddItem(Resources);
 
 	class'X2ItemTemplateManager'.static.GetItemTemplateManager().AddItemTemplate(Template, true);
 }
@@ -414,13 +521,12 @@ static function SniperRifle_Conventional(X2WeaponTemplate Template)
 	Template.NumUpgradeSlots = 1;
 	Template.iTypicalActionCost = 2;
 
-	Template.StartingItem = true;
-	Template.bInfiniteItem = false;
 	Template.CanBeBuilt = true;
+	Template.bInfiniteItem = false;
 
 	// Cost
 	Resources.ItemTemplateName = 'Supplies';
-	Resources.Quantity = 30;
+	Resources.Quantity = 45;
 	Template.Cost.ResourceCosts.AddItem(Resources);
 
 	class'X2ItemTemplateManager'.static.GetItemTemplateManager().AddItemTemplate(Template, true);
@@ -428,6 +534,8 @@ static function SniperRifle_Conventional(X2WeaponTemplate Template)
 
 static function SniperRifle_Magnetic(X2WeaponTemplate Template)
 {
+	local ArtifactCost Resources;
+	
 	Template.UIStatMarkups.Remove(0, Template.UIStatMarkups.Length);
 	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_WeaponModifiers'.default.SNIPERRIFLE_MOBILITY_BONUS);
 
@@ -439,14 +547,29 @@ static function SniperRifle_Magnetic(X2WeaponTemplate Template)
 	Template.iSoundRange = default.SNIPERRIFLE_MAGNETIC_ISOUNDRANGE;
 	Template.iEnvironmentDamage = default.SNIPERRIFLE_MAGNETIC_IENVIRONMENTDAMAGE;
 
-	Template.CanBeBuilt = true;
 	Template.bInfiniteItem = false;
+
+	// Requirements
+	Template.Requirements.RequiredTechs.AddItem('GaussWeapons');
+	Template.Requirements.RequiredEngineeringScore = 15;
+	Template.Requirements.bVisibleIfPersonnelGatesNotMet = true;
+
+	// Cost
+	Resources.ItemTemplateName = 'Supplies';
+	Resources.Quantity = 150;
+	Template.Cost.ResourceCosts.AddItem(Resources);
+
+	Resources.ItemTemplateName = 'AlienAlloy';
+	Resources.Quantity = 10;
+	Template.Cost.ResourceCosts.AddItem(Resources);
 
 	class'X2ItemTemplateManager'.static.GetItemTemplateManager().AddItemTemplate(Template, true);
 }
 
 static function SniperRifle_Beam(X2WeaponTemplate Template)
 {
+	local ArtifactCost Resources;
+	
 	Template.UIStatMarkups.Remove(0, Template.UIStatMarkups.Length);
 	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_WeaponModifiers'.default.SNIPERRIFLE_MOBILITY_BONUS);
 
@@ -458,8 +581,25 @@ static function SniperRifle_Beam(X2WeaponTemplate Template)
 	Template.iSoundRange = default.SNIPERRIFLE_BEAM_ISOUNDRANGE;
 	Template.iEnvironmentDamage = default.SNIPERRIFLE_BEAM_IENVIRONMENTDAMAGE;
 
-	Template.CanBeBuilt = true;
 	Template.bInfiniteItem = false;
+
+	// Requirements
+	Template.Requirements.RequiredTechs.AddItem('PlasmaSniper');
+	Template.Requirements.RequiredEngineeringScore = 25;
+	Template.Requirements.bVisibleIfPersonnelGatesNotMet = true;
+
+	// Cost
+	Resources.ItemTemplateName = 'Supplies';
+	Resources.Quantity = 300;
+	Template.Cost.ResourceCosts.AddItem(Resources);
+
+	Resources.ItemTemplateName = 'AlienAlloy';
+	Resources.Quantity = 20;
+	Template.Cost.ResourceCosts.AddItem(Resources);
+
+	Resources.ItemTemplateName = 'EleriumDust';
+	Resources.Quantity = 10;
+	Template.Cost.ResourceCosts.AddItem(Resources);
 
 	class'X2ItemTemplateManager'.static.GetItemTemplateManager().AddItemTemplate(Template, true);
 }

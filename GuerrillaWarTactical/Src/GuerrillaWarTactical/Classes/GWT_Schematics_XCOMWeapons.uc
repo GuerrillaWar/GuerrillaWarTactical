@@ -6,34 +6,13 @@ static function array<X2DataTemplate> CreateTemplates()
 	
 	// Weapon Schematics
 	Schematics.AddItem(CreateTemplate_AssaultRifle_Conventional_Schematic());
-	Schematics.AddItem(CreateTemplate_AssaultRifle_Magnetic_Schematic());
-	Schematics.AddItem(CreateTemplate_AssaultRifle_Beam_Schematic());
 
 	Schematics.AddItem(CreateTemplate_Shotgun_Conventional_Schematic());
-	Schematics.AddItem(CreateTemplate_Shotgun_Magnetic_Schematic());
-	Schematics.AddItem(CreateTemplate_Shotgun_Beam_Schematic());
+	
 	
 	Schematics.AddItem(CreateTemplate_Cannon_Conventional_Schematic());
-	Schematics.AddItem(CreateTemplate_Cannon_Magnetic_Schematic());
-	Schematics.AddItem(CreateTemplate_Cannon_Beam_Schematic());
 	
 	Schematics.AddItem(CreateTemplate_SniperRifle_Conventional_Schematic());
-	Schematics.AddItem(CreateTemplate_SniperRifle_Magnetic_Schematic());
-	Schematics.AddItem(CreateTemplate_SniperRifle_Beam_Schematic());
-	
-	Schematics.AddItem(CreateTemplate_Pistol_Magnetic_Schematic());
-	Schematics.AddItem(CreateTemplate_Pistol_Beam_Schematic());
-
-	Schematics.AddItem(CreateTemplate_Sword_Magnetic_Schematic());
-	Schematics.AddItem(CreateTemplate_Sword_Beam_Schematic());
-
-	Schematics.AddItem(CreateTemplate_PsiAmp_Magnetic_Schematic());
-	Schematics.AddItem(CreateTemplate_PsiAmp_Beam_Schematic());
-
-	Schematics.AddItem(CreateTemplate_Gremlin_Magnetic_Schematic());
-	Schematics.AddItem(CreateTemplate_Gremlin_Beam_Schematic());
-
-	Schematics.AddItem(CreateTemplate_GrenadeLauncher_Magnetic_Schematic());
 
 	return Schematics;
 }
@@ -49,26 +28,14 @@ static function X2DataTemplate CreateTemplate_AssaultRifle_Conventional_Schemati
 	`CREATE_X2TEMPLATE(class'X2SchematicTemplate', Template, 'AssaultRifle_CV_Schematic');
 
 	Template.ItemCat = 'weapon';
-	Template.strImage = "img:///UILibrary_Common.ChallengeMode.ChallengeUnlock_Rifle_gold";
+	Template.strImage = "_ConventionalRifle";
 	Template.PointsToComplete = 0;
 	Template.Tier = 0;
 	Template.OnBuiltFn = UpgradeItems;
 
+	Template.StartingItem = true;
 	Template.bOneTimeBuild = false;
-
-	// Reference Item
-	Template.ReferenceItemTemplate = 'AssaultRifle_CV';
-	Template.HideIfPurchased = 'AssaultRifle_MG';
-
-	// Requirements
-	Template.Requirements.RequiredEngineeringScore = 0;
-	Template.Requirements.bVisibleIfPersonnelGatesNotMet = true;
-
-	// Cost
-	Resources.ItemTemplateName = 'Supplies';
-	Resources.Quantity = 30;
-	Template.Cost.ResourceCosts.AddItem(Resources);
-
+	Template.CanBeBuilt = false;
 
 	return Template;
 }
@@ -88,6 +55,7 @@ static function X2DataTemplate CreateTemplate_AssaultRifle_Magnetic_Schematic()
 	Template.OnBuiltFn = UpgradeItems;
 
 	Template.bOneTimeBuild = false;
+	
 
 	// Reference Item
 	Template.ReferenceItemTemplate = 'AssaultRifle_MG';
@@ -157,25 +125,14 @@ static function X2DataTemplate CreateTemplate_Shotgun_Conventional_Schematic()
 	`CREATE_X2TEMPLATE(class'X2SchematicTemplate', Template, 'Shotgun_CV_Schematic');
 
 	Template.ItemCat = 'weapon';
-	Template.strImage = "img:///UILibrary_Common.ChallengeMode.ChallengeUnlock_Shotgun_gold";
+	Template.strImage = "_ConventionalShotgun";
 	Template.PointsToComplete = 0;
 	Template.Tier = 0;
 	Template.OnBuiltFn = UpgradeItems;
 
+	Template.StartingItem = true;
 	Template.bOneTimeBuild = false;
-
-	// Reference Item
-	Template.ReferenceItemTemplate = 'Shotgun_CV';
-	Template.HideIfPurchased = 'Shotgun_MG';
-
-	// Requirements
-	Template.Requirements.RequiredEngineeringScore = 0;
-	Template.Requirements.bVisibleIfPersonnelGatesNotMet = true;
-
-	// Cost
-	Resources.ItemTemplateName = 'Supplies';
-	Resources.Quantity = 30;
-	Template.Cost.ResourceCosts.AddItem(Resources);
+	Template.CanBeBuilt = false;
 
 
 	return Template;
@@ -195,6 +152,7 @@ static function X2DataTemplate CreateTemplate_Shotgun_Magnetic_Schematic()
 	Template.OnBuiltFn = UpgradeItems;
 
 	Template.bOneTimeBuild = false;
+	
 
 	// Reference Item
 	Template.ReferenceItemTemplate = 'Shotgun_MG';
@@ -231,6 +189,7 @@ static function X2DataTemplate CreateTemplate_Shotgun_Beam_Schematic()
 	Template.OnBuiltFn = UpgradeItems;
 
 	Template.bOneTimeBuild = false;
+	
 
 	// Reference Item
 	Template.ReferenceItemTemplate = 'Shotgun_BM';
@@ -264,25 +223,14 @@ static function X2DataTemplate CreateTemplate_Cannon_Conventional_Schematic()
 	`CREATE_X2TEMPLATE(class'X2SchematicTemplate', Template, 'Cannon_CV_Schematic');
 
 	Template.ItemCat = 'weapon';
-	Template.strImage = "img:///UILibrary_Common.ChallengeMode.ChallengeUnlock_Cannon_gold";
+	Template.strImage = "_ConventionalCannon";
 	Template.PointsToComplete = 0;
 	Template.Tier = 0;
 	Template.OnBuiltFn = UpgradeItems;
 
+	Template.StartingItem = true;
 	Template.bOneTimeBuild = false;
-
-	// Reference Item
-	Template.ReferenceItemTemplate = 'Cannon_CV';
-	Template.HideIfPurchased = 'Cannon_MG';
-
-	// Requirements
-	Template.Requirements.RequiredEngineeringScore = 0;
-	Template.Requirements.bVisibleIfPersonnelGatesNotMet = true;
-
-	// Cost
-	Resources.ItemTemplateName = 'Supplies';
-	Resources.Quantity = 40;
-	Template.Cost.ResourceCosts.AddItem(Resources);
+	Template.CanBeBuilt = false;
 
 
 	return Template;
@@ -302,6 +250,7 @@ static function X2DataTemplate CreateTemplate_Cannon_Magnetic_Schematic()
 	Template.OnBuiltFn = UpgradeItems;
 
 	Template.bOneTimeBuild = false;
+	
 
 	// Reference Item
 	Template.ReferenceItemTemplate = 'Cannon_MG';
@@ -338,6 +287,7 @@ static function X2DataTemplate CreateTemplate_Cannon_Beam_Schematic()
 	Template.OnBuiltFn = UpgradeItems;
 
 	Template.bOneTimeBuild = false;
+	
 
 	// Reference Item
 	Template.ReferenceItemTemplate = 'Cannon_BM';
@@ -371,25 +321,14 @@ static function X2DataTemplate CreateTemplate_SniperRifle_Conventional_Schematic
 	`CREATE_X2TEMPLATE(class'X2SchematicTemplate', Template, 'SniperRifle_CV_Schematic');
 
 	Template.ItemCat = 'weapon';
-	Template.strImage = "img:///UILibrary_Common.ChallengeMode.ChallengeUnlock_Sniper_gold";
+	Template.strImage = "_ConventionalSniperRifle";
 	Template.PointsToComplete = 0;
 	Template.Tier = 0;
 	Template.OnBuiltFn = UpgradeItems;
 
+	Template.StartingItem = true;
 	Template.bOneTimeBuild = false;
-
-	// Reference Item
-	Template.ReferenceItemTemplate = 'SniperRifle_CV';
-	Template.HideIfPurchased = 'SniperRifle_MG';
-
-	// Requirements
-	Template.Requirements.RequiredEngineeringScore = 0;
-	Template.Requirements.bVisibleIfPersonnelGatesNotMet = true;
-
-	// Cost
-	Resources.ItemTemplateName = 'Supplies';
-	Resources.Quantity = 40;
-	Template.Cost.ResourceCosts.AddItem(Resources);
+	Template.CanBeBuilt = false;
 
 
 	return Template;
@@ -403,7 +342,7 @@ static function X2DataTemplate CreateTemplate_SniperRifle_Magnetic_Schematic()
 	`CREATE_X2TEMPLATE(class'X2SchematicTemplate', Template, 'SniperRifle_MG_Schematic');
 
 	Template.ItemCat = 'weapon';
-	Template.strImage = "img:///UILibrary_StrategyImages.X2InventoryIcons.Inv_Mag_Sniper_Rifle";
+	Template.strImage ="img:///UILibrary_StrategyImages.X2InventoryIcons.Inv_Mag_Sniper_Rifle";
 	Template.PointsToComplete = 0;
 	Template.Tier = 2;
 	Template.OnBuiltFn = UpgradeItems;
