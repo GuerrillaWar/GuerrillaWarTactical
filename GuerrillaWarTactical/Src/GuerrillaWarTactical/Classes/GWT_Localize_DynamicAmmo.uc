@@ -9,11 +9,13 @@ event ExpandHandler(string InString, out string OutString)
 {
 	local name Type;
 	local XComGameStateHistory History;
+	local X2AbilityTemplate AbilityTemplate;
 	local XComGameState_Ability AbilityState;
 	local XComGameState_Effect EffectState;
 	local XComGameState_Unit TargetUnitState;
 	local GWT_Effect_Suppression Effect;
 	local GWT_AbilityCost_WeaponConditionalAmmo AmmoCost;
+	local int Idx;
 
 	Type = name(InString);
 	History = `XCOMHISTORY;

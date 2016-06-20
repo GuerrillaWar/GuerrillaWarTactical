@@ -4,7 +4,6 @@ class GWT_InsertBaseWeaponAbilities extends Object;
 
 static function AddBaseAbilitiesToWeapons()
 {
-	local X2ItemTemplate Item;
 	local X2GrenadeLauncherTemplate GrenadeLauncher;
 	local X2WeaponTemplate Weapon;
 	local X2ItemTemplateManager ItemManager;
