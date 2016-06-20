@@ -84,6 +84,9 @@
     <Content Include="Src\GuerrillaWarTactical\Classes\GWT_Localize_DynamicAmmo.uc">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Src\GuerrillaWarTactical\Classes\GWT_Schematics_XCOMArmor.uc">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Src\GuerrillaWarTactical\Classes\GWT_Schematics_XCOMWeapons.uc">
       <SubType>Content</SubType>
     </Content>
