@@ -9,10 +9,13 @@ static function array<X2DataTemplate> CreateTemplates()
 
 	Schematics.AddItem(CreateTemplate_Shotgun_Conventional_Schematic());
 	
-	
 	Schematics.AddItem(CreateTemplate_Cannon_Conventional_Schematic());
 	
 	Schematics.AddItem(CreateTemplate_SniperRifle_Conventional_Schematic());
+
+	Schematics.AddItem(CreateTemplate_GrenadeLauncher_Magnetic_Schematic());
+
+	Schematics.AddItem(CreateTemplate_FrageGrenade_Schematic());
 
 	return Schematics;
 }
@@ -730,6 +733,8 @@ static function X2DataTemplate CreateTemplate_GrenadeLauncher_Magnetic_Schematic
 	Template.Tier = 1;
 	Template.OnBuiltFn = UpgradeItems;
 
+	Template.CanBeBuilt = true;
+	Template.bInfiniteItem = false;
 	Template.bOneTimeBuild = false;
 
 	// Reference Item
@@ -747,6 +752,38 @@ static function X2DataTemplate CreateTemplate_GrenadeLauncher_Magnetic_Schematic
 
 	Resources.ItemTemplateName = 'AlienAlloy';
 	Resources.Quantity = 10;
+	Template.Cost.ResourceCosts.AddItem(Resources);
+
+	return Template;
+}
+
+static function X2DataTemplate CreateTemplate_FrageGrenade_Schematic()
+{
+	local X2SchematicTemplate Template;
+	local ArtifactCost Resources;
+
+	`CREATE_X2TEMPLATE(class'X2SchematicTemplate', Template, 'FragGrenade_Schematic');
+
+	Template.ItemCat = 'utility';
+	Template.strImage = "img:///UILibrary_StrategyImages.X2InventoryIcons.Inv_Frag_Grenade";
+	Template.PointsToComplete = 0;
+	Template.Tier = 0;
+	Template.OnBuiltFn = UpgradeItems;
+
+	Template.StartingItem = true;
+	Template.bOneTimeBuild = false;
+	Template.CanBeBuilt = false;
+
+	// Reference Item
+	Template.ReferenceItemTemplate = 'FragGrenade';
+
+	// Requirements
+	Template.Requirements.RequiredEngineeringScore = 0;
+	Template.Requirements.bVisibleIfPersonnelGatesNotMet = true;
+
+	// Cost
+	Resources.ItemTemplateName = 'Supplies';
+	Resources.Quantity = 35;
 	Template.Cost.ResourceCosts.AddItem(Resources);
 
 	return Template;

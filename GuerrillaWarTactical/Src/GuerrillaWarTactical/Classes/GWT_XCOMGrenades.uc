@@ -136,7 +136,6 @@ static function UpdateXCOMGrenadeTemplates()
 
 	CreateFirebomb(X2GrenadeTemplate(Manager.FindItemTemplate('Firebomb')));
 	CreateFirebombMK2(X2GrenadeTemplate(Manager.FindItemTemplate('FirebombMK2')));
-	CreateFragGrenade(X2GrenadeTemplate(Manager.FindItemTemplate('FragGrenade')));
 	CreateAlienGrenade(X2GrenadeTemplate(Manager.FindItemTemplate('AlienGrenade')));
 	CreateFlashbangGrenade(X2GrenadeTemplate(Manager.FindItemTemplate('FlashbangGrenade')));
 	CreateSmokeGrenade(X2GrenadeTemplate(Manager.FindItemTemplate('SmokeGrenade')));
@@ -150,6 +149,15 @@ static function UpdateXCOMGrenadeTemplates()
 	EMPGrenade(X2GrenadeTemplate(Manager.FindItemTemplate('EMPGrenade')));
 	EMPGrenadeMk2(X2GrenadeTemplate(Manager.FindItemTemplate('EMPGrenadeMk2')));
 	ProximityMine(X2GrenadeTemplate(Manager.FindItemTemplate('ProximityMine')));
+}
+
+static function array<X2DataTemplate> CreateTemplates()
+{
+	local array<X2DataTemplate> Grenades;
+
+	Grenades.AddItem(CreateFragGrenade());
+
+	return Grenades;
 }
 
 static function CreateFirebomb(X2GrenadeTemplate Template)
@@ -191,6 +199,7 @@ static function CreateFirebombMK2(X2GrenadeTemplate Template)
 	Template.Abilities.AddItem('GRENADE_STATS');
 	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_WeaponModifiers'.default.GRENADE_MOBILITY_BONUS);
 
+
 	Template.SetUIStatMarkup(class'XLocalizedData'.default.RangeLabel, , default.FIREBOMB_RANGE);
 	Template.SetUIStatMarkup(class'XLocalizedData'.default.RadiusLabel, , default.FIREBOMB_RADIUS);
 	Template.SetUIStatMarkup(class'XLocalizedData'.default.ShredLabel, , default.FIREGRENADEM2_BASEDAMAGE.Shred);
@@ -199,30 +208,12 @@ static function CreateFirebombMK2(X2GrenadeTemplate Template)
 
 }
 
-static function CreateFragGrenade(X2GrenadeTemplate Template)
-{
-	Template.iRange = default.FRAGGRENADE_RANGE;
-	Template.iRadius = default.FRAGGRENADE_RADIUS;
-
-	Template.BaseDamage = default.FRAGGRENADE_BASEDAMAGE;
-	Template.iSoundRange = default.FRAGGRENADE_ISOUNDRANGE;
-	Template.iEnvironmentDamage = default.FRAGGRENADE_IENVIRONMENTDAMAGE;
-	Template.TradingPostValue = default.FRAGGRENADE_TRADINGPOSTVALUE;
-	Template.iClipSize = default.FRAGGRENADE_ICLIPSIZE;
-	
-	Template.Abilities.AddItem('GRENADE_STATS');
-	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_WeaponModifiers'.default.GRENADE_MOBILITY_BONUS);
-	
-	Template.SetUIStatMarkup(class'XLocalizedData'.default.RangeLabel, , default.FRAGGRENADE_RANGE);
-	Template.SetUIStatMarkup(class'XLocalizedData'.default.RadiusLabel, , default.FRAGGRENADE_RADIUS);
-	Template.SetUIStatMarkup(class'XLocalizedData'.default.ShredLabel, , default.FRAGGRENADE_BASEDAMAGE.Shred);
-
-	class'X2ItemTemplateManager'.static.GetItemTemplateManager().AddItemTemplate(Template, true);
-
-}
 
 static function CreateAlienGrenade(X2GrenadeTemplate Template)
 {
+
+	local ArtifactCost Resources;
+
 	Template.iRange = default.ALIENGRENADE_RANGE;
 	Template.iRadius = default.ALIENGRENADE_RADIUS;
 
@@ -235,6 +226,13 @@ static function CreateAlienGrenade(X2GrenadeTemplate Template)
 
 	Template.Abilities.AddItem('GRENADE_STATS');
 	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_WeaponModifiers'.default.GRENADE_MOBILITY_BONUS);
+
+	Template.bInfiniteItem = false;
+
+	// Cost
+	Resources.ItemTemplateName = 'Supplies';
+	Resources.Quantity = 80;
+	Template.Cost.ResourceCosts.AddItem(Resources);
 	
 	Template.SetUIStatMarkup(class'XLocalizedData'.default.RangeLabel, , default.ALIENGRENADE_RANGE);
 	Template.SetUIStatMarkup(class'XLocalizedData'.default.RadiusLabel, , default.ALIENGRENADE_RADIUS);
@@ -296,6 +294,8 @@ static function CreateSmokeGrenadeMk2(X2GrenadeTemplate Template)
 	Template.PointsToComplete = default.SMOKEGRENADE_IPOINTS;
 	Template.iClipSize = default.SMOKEGRENADE_ICLIPSIZE;
 
+	Template.bInfiniteItem = false;
+
 	Template.Abilities.AddItem('GRENADE_STATS');
 	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_WeaponModifiers'.default.GRENADE_MOBILITY_BONUS);
 
@@ -341,6 +341,8 @@ static function CreateGasGrenadeMk2(X2GrenadeTemplate Template)
 	Template.PointsToComplete = default.GASGRENADE_IPOINTS;
 	Template.iClipSize = default.GASGRENADE_ICLIPSIZE;
 
+	Template.bInfiniteItem = false;
+
 	Template.Abilities.AddItem('GRENADE_STATS');
 	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_WeaponModifiers'.default.GRENADE_MOBILITY_BONUS);
 
@@ -363,6 +365,8 @@ static function CreateAcidGrenade(X2GrenadeTemplate Template)
 	Template.TradingPostValue = default.ACIDGRENADE_TRADINGPOSTVALUE;
 	Template.PointsToComplete = default.ACIDGRENADE_IPOINTS;
 	Template.iClipSize = default.ACIDGRENADE_ICLIPSIZE;
+
+	Template.bInfiniteItem = false;
 	
 	Template.Abilities.AddItem('GRENADE_STATS');
 	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_WeaponModifiers'.default.GRENADE_MOBILITY_BONUS);
@@ -388,6 +392,8 @@ static function CreateAcidGrenadeMk2(X2GrenadeTemplate Template)
 	Template.PointsToComplete = default.ACIDGRENADE_IPOINTS;
 	Template.iClipSize = default.ACIDGRENADE_ICLIPSIZE;
 
+	Template.bInfiniteItem = false;
+
 	Template.Abilities.AddItem('GRENADE_STATS');
 	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_WeaponModifiers'.default.GRENADE_MOBILITY_BONUS);
 
@@ -401,6 +407,8 @@ static function CreateAcidGrenadeMk2(X2GrenadeTemplate Template)
 
 static function GrenadeLauncher(X2GrenadeLauncherTemplate Template)
 {
+	local ArtifactCost Resources;
+	
 	Template.iSoundRange = default.GRENADELAUNCHER_ISOUNDRANGE;
 	Template.iEnvironmentDamage = default.GRENADELAUNCHER_IENVIRONMENTDAMAGE;
 	Template.TradingPostValue = default.GRENADELAUNCHER_TRADINGPOSTVALUE;
@@ -410,6 +418,14 @@ static function GrenadeLauncher(X2GrenadeLauncherTemplate Template)
 	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_WeaponModifiers'.default.GRENADE_MOBILITY_BONUS);
 	Template.IncreaseGrenadeRadius = default.GRENADELAUNCHER_RADIUSBONUS;
 	Template.IncreaseGrenadeRange = default.GRENADELAUNCHER_RANGEBONUS;
+
+	Template.CanBeBuilt = true;
+	Template.bInfiniteItem = false;
+
+	// Cost
+	Resources.ItemTemplateName = 'Supplies';
+	Resources.Quantity = 100;
+	Template.Cost.ResourceCosts.AddItem(Resources);
 
 	Template.SetUIStatMarkup(class'XLocalizedData'.default.GrenadeRangeBonusLabel, , default.GRENADELAUNCHER_RANGEBONUS);
 	Template.SetUIStatMarkup(class'XLocalizedData'.default.GrenadeRadiusBonusLabel, , default.GRENADELAUNCHER_RADIUSBONUS);
@@ -421,6 +437,8 @@ static function GrenadeLauncher(X2GrenadeLauncherTemplate Template)
 static function AdvGrenadeLauncher(X2GrenadeLauncherTemplate Template)
 {
 
+	local ArtifactCost Resources;
+
 	Template.iSoundRange = default.ADVGRENADELAUNCHER_ISOUNDRANGE;
 	Template.iEnvironmentDamage = default.ADVGRENADELAUNCHER_IENVIRONMENTDAMAGE;
 	Template.iClipSize = default.ADVGRENADELAUNCHER_ICLIPSIZE;
@@ -430,6 +448,14 @@ static function AdvGrenadeLauncher(X2GrenadeLauncherTemplate Template)
 	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_WeaponModifiers'.default.GRENADE_MOBILITY_BONUS);
 	Template.IncreaseGrenadeRadius = default.ADVGRENADELAUNCHER_RADIUSBONUS;
 	Template.IncreaseGrenadeRange = default.ADVGRENADELAUNCHER_RANGEBONUS;
+
+	Template.CanBeBuilt = true;
+	Template.bInfiniteItem = false;
+
+	// Cost
+	Resources.ItemTemplateName = 'Supplies';
+	Resources.Quantity = 180;
+	Template.Cost.ResourceCosts.AddItem(Resources);
 
 	Template.SetUIStatMarkup(class'XLocalizedData'.default.GrenadeRangeBonusLabel, , default.ADVGRENADELAUNCHER_RANGEBONUS);
 	Template.SetUIStatMarkup(class'XLocalizedData'.default.GrenadeRadiusBonusLabel, , default.ADVGRENADELAUNCHER_RADIUSBONUS);
@@ -447,6 +473,8 @@ static function EMPGrenade(X2GrenadeTemplate Template)
 	Template.Abilities.AddItem('GRENADE_STATS');
 	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_WeaponModifiers'.default.GRENADE_MOBILITY_BONUS);
 
+	Template.bInfiniteItem = false;
+
 	Template.SetUIStatMarkup(class'XLocalizedData'.default.RoboticDamageLabel, , default.EMPGRENADEM1_BASEDAMAGE.Damage);
 	Template.SetUIStatMarkup(class'XLocalizedData'.default.RangeLabel, , default.EMPGRENADE_RANGE);
 	Template.SetUIStatMarkup(class'XLocalizedData'.default.RadiusLabel, , default.EMPGRENADE_RADIUS);
@@ -460,6 +488,8 @@ static function EMPGrenadeMk2(X2GrenadeTemplate Template)
 	Template.iRange = default.EMPBOMB_RANGE;
 	Template.iRadius = default.EMPBOMB_RADIUS;
 	Template.BaseDamage = default.EMPGRENADEM2_BASEDAMAGE;
+
+	Template.bInfiniteItem = false;
 	
 	Template.Abilities.AddItem('GRENADE_STATS');
 	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'GWT_WeaponModifiers'.default.GRENADE_MOBILITY_BONUS);
@@ -489,3 +519,61 @@ static function ProximityMine(X2GrenadeTemplate Template)
 
 }
 
+static function X2DataTemplate CreateFragGrenade()
+{
+	local X2GrenadeTemplate Template;
+	local X2Effect_ApplyWeaponDamage WeaponDamageEffect;
+	local X2Effect_Knockback KnockbackEffect;
+	local ArtifactCost Resources;
+
+	`CREATE_X2TEMPLATE(class'X2GrenadeTemplate', Template, 'FragGrenade');
+
+	Template.strImage = "img:///UILibrary_StrategyImages.X2InventoryIcons.Inv_Frag_Grenade";
+	Template.EquipSound = "StrategyUI_Grenade_Equip";
+	Template.iRange = default.FRAGGRENADE_RANGE;
+	Template.iRadius = default.FRAGGRENADE_RADIUS;
+
+	Template.BaseDamage = default.FRAGGRENADE_BASEDAMAGE;
+	Template.iSoundRange = default.FRAGGRENADE_ISOUNDRANGE;
+	Template.iEnvironmentDamage = default.FRAGGRENADE_IENVIRONMENTDAMAGE;
+	Template.TradingPostValue = default.FRAGGRENADE_TRADINGPOSTVALUE;
+	Template.iClipSize = default.FRAGGRENADE_ICLIPSIZE;
+	Template.DamageTypeTemplateName = 'Explosion';
+	Template.Tier = 0;
+
+	Template.CreatorTemplateName = 'FragGrenade_Schematic'; // The schematic which creates this item
+
+	Template.Abilities.AddItem('ThrowGrenade');
+	Template.Abilities.AddItem('GrenadeFuse');
+	
+	Template.GameArchetype = "WP_Grenade_Frag.WP_Grenade_Frag";
+
+	Template.iPhysicsImpulse = 10;
+
+	Template.CanBeBuilt = true;
+	Template.bInfiniteItem = false;
+
+	WeaponDamageEffect = new class'X2Effect_ApplyWeaponDamage';
+	WeaponDamageEffect.bExplosiveDamage = true;
+	Template.ThrownGrenadeEffects.AddItem(WeaponDamageEffect);
+	Template.LaunchedGrenadeEffects.AddItem(WeaponDamageEffect);
+
+	Template.OnThrowBarkSoundCue = 'ThrowGrenade';
+
+	KnockbackEffect = new class'X2Effect_Knockback';
+	KnockbackEffect.bUseTargetLocation = true; //This looks better for the animations used even though the source location should be used for grenades.
+	KnockbackEffect.KnockbackDistance = 2;
+	Template.ThrownGrenadeEffects.AddItem(KnockbackEffect);
+	Template.LaunchedGrenadeEffects.AddItem(KnockbackEffect);
+
+	// Cost
+	Resources.ItemTemplateName = 'Supplies';
+	Resources.Quantity = 35;
+	Template.Cost.ResourceCosts.AddItem(Resources);
+	
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.RangeLabel, , default.FRAGGRENADE_RANGE);
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.RadiusLabel, , default.FRAGGRENADE_RADIUS);
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.ShredLabel, , default.FRAGGRENADE_BASEDAMAGE.Shred);
+
+	return Template;
+}
