@@ -314,7 +314,6 @@ static function X2DataTemplate CreateMedikit()
 	Resources.Quantity = 35;
 	Template.Cost.ResourceCosts.AddItem(Resources);
 
-	Template.HideIfResearched = 'BattlefieldMedicine';
 
 	return Template;
 }
@@ -364,7 +363,6 @@ static function X2DataTemplate NanoMedikit()
 	Template.Requirements.RequiredTechs.AddItem('BattlefieldMedicine');
 
 	Template.CreatorTemplateName = 'BattlefieldMedicine'; // The schematic which creates this item
-	Template.BaseItem = 'Medikit'; // Which item this will be upgraded from
 
 	return Template;
 }
