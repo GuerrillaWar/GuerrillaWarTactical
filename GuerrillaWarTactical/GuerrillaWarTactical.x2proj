@@ -42,6 +42,9 @@
     <Content Include="Config\XComGWT_WeaponStats.ini">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Config\XComNCE.ini">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Content\GWT_XCOMWeapons.upk">
       <SubType>Content</SubType>
     </Content>
@@ -99,7 +102,13 @@
     <Content Include="Src\GuerrillaWarTactical\Classes\GWT_XCOMWeapons.uc">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Src\GuerrillaWarTactical\Classes\UIAvengerHUD_Listener_NCE.uc">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Src\GuerrillaWarTactical\Classes\X2DownloadableContentInfo_GuerrillaWarTactical.uc" />
+    <Content Include="Src\GuerrillaWarTactical\Classes\XComGameState_NCE.uc">
+      <SubType>Content</SubType>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildLocalExtensionPath)\XCOM2.targets" />
 </Project>
