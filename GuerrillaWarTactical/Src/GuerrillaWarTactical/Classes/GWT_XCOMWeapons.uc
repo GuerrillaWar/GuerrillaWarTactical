@@ -159,6 +159,10 @@ static function UpdateXCOMWeaponTemplates()
 	AssaultRifle_Conventional(X2WeaponTemplate(Manager.FindItemTemplate('AssaultRifle_CV')));
 	AssaultRifle_Magnetic(X2WeaponTemplate(Manager.FindItemTemplate('AssaultRifle_MG')));
 	AssaultRifle_Beam(X2WeaponTemplate(Manager.FindItemTemplate('AssaultRifle_BM')));
+
+	ADV_Trooper_M1_Wpn(X2WeaponTemplate(Manager.FindItemTemplate('AdvTrooperM1_WPN')));
+	ADV_Trooper_M2_Wpn(X2WeaponTemplate(Manager.FindItemTemplate('AdvTrooperM2_WPN')));
+	ADV_Trooper_M3_WPN(X2WeaponTemplate(Manager.FindItemTemplate('AdvTrooperM3_WPN')));
 }
 
 // **********************************************************************************************************
@@ -600,6 +604,43 @@ static function SniperRifle_Beam(X2WeaponTemplate Template)
 	Resources.ItemTemplateName = 'EleriumDust';
 	Resources.Quantity = 10;
 	Template.Cost.ResourceCosts.AddItem(Resources);
+
+	class'X2ItemTemplateManager'.static.GetItemTemplateManager().AddItemTemplate(Template, true);
+}
+
+// **********************************************************************************************************
+// // ***                                         Enemy Weapons                                           ***
+// **********************************************************************************************************
+
+// **************************************************************************
+// ***                 Advent Troops - BASIC WEAPONS                      ***
+// **************************************************************************
+
+static function ADV_Trooper_M1_Wpn(X2WeaponTemplate Template)
+{
+
+	Template.Abilities.AddItem('Suppression');
+	Template.GameArchetype = "GWT_XCOMWeapons.GWT_AssaultRifle_MG_Advent";
+
+	class'X2ItemTemplateManager'.static.GetItemTemplateManager().AddItemTemplate(Template, true);
+}
+
+
+static function ADV_Trooper_M2_Wpn(X2WeaponTemplate Template)
+{
+
+	Template.Abilities.AddItem('Suppression');
+	Template.GameArchetype = "GWT_XCOMWeapons.GWT_AssaultRifle_MG_Advent";
+
+	class'X2ItemTemplateManager'.static.GetItemTemplateManager().AddItemTemplate(Template, true);
+}
+
+
+static function ADV_Trooper_M3_WPN(X2WeaponTemplate Template)
+{
+
+	Template.Abilities.AddItem('Suppression');
+	Template.GameArchetype = "GWT_XCOMWeapons.GWT_AssaultRifle_MG_Advent";
 
 	class'X2ItemTemplateManager'.static.GetItemTemplateManager().AddItemTemplate(Template, true);
 }

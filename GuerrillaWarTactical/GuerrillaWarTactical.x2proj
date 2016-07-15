@@ -18,6 +18,9 @@
     <Folder Include="Src\GuerrillaWarTactical\Classes\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Config\XComAI.ini">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Config\XComClassData.ini">
       <SubType>Content</SubType>
     </Content>
@@ -105,7 +108,13 @@
     <Content Include="Src\GuerrillaWarTactical\Classes\UIAvengerHUD_Listener_NCE.uc">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Src\GuerrillaWarTactical\Classes\UISL_WeaponArchetypePatcher.uc">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Src\GuerrillaWarTactical\Classes\X2DownloadableContentInfo_GuerrillaWarTactical.uc" />
+    <Content Include="Src\GuerrillaWarTactical\Classes\X2Item_RifleArchtypePatch.uc">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Src\GuerrillaWarTactical\Classes\XComGameState_NCE.uc">
       <SubType>Content</SubType>
     </Content>
